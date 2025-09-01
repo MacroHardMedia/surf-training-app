@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import { Text, useColorScheme } from "react-native";
 import { Colors } from "../constants/Colors";
 
 // Themed
@@ -10,8 +10,24 @@ export default function RootLayout() {
   const theme = Colors[colorScheme] ?? Colors.light;
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+    <Stack
+      screenOptions={{
+        headerStyle: { backgroundColor: theme.navBackground },
+        headerTintColor: theme.title,
+        headerTitle: () => (
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: "bold",
+              color: theme.title,
+            }}
+          >
+            Tropa Surf
+          </Text>
+        ),
+      }}
+    >
+      <Stack.Screen name="index" options={{ headerShown: true }} />
     </Stack>
   );
 }
