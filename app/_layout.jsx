@@ -17,17 +17,25 @@ export default function RootLayout() {
         headerTitle: () => (
           <Text
             style={{
-              fontSize: 25,
+              fontSize: 20,
               fontWeight: "bold",
               color: theme.title,
             }}
           >
-            Tropa Surf
+            Total Surf App
           </Text>
         ),
       }}
     >
-      <Stack.Screen name="index" options={{ headerShown: true }} />
+      <Stack.Screen name="(tabs)" options={{ headerShown: true }} />
+      <Stack.Screen
+        name="programs/[program]"
+        options={{
+          headerShown: false,
+          headerTitle: "",
+          headerBackTitleVisible: false,
+        }}
+      />
     </Stack>
   );
 }

@@ -1,15 +1,24 @@
-import { View, Text, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function ProgramCard({ title, color = "#eee", size = 100 }) {
+  const router = useRouter();
+
+  const handlePress = () => {
+    router.push(`/programs/${encodeURIComponent(title)}`);
+  };
+
   return (
-    <View
-      style={[
-        styles.card,
-        { backgroundColor: color, height: size, width: size },
-      ]}
-    >
-      <Text style={styles.text}>{title}</Text>
-    </View>
+    <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
+      <View
+        style={[
+          styles.card,
+          { backgroundColor: color, height: size, width: size },
+        ]}
+      >
+        <Text style={styles.text}>{title}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

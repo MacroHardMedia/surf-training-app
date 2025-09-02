@@ -17,7 +17,7 @@ export default function TabLayout() {
             iconName = "home";
           } else if (route.name === "progress") {
             iconName = "calendar";
-          } else if (route.name === "timer") {
+          } else if (route.name === "apnea") {
             iconName = "timer";
           } else if (route.name === "techniques") {
             iconName = "book";
@@ -27,12 +27,12 @@ export default function TabLayout() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: theme.tint,
+        tabBarActiveTintColor: theme.tint || "#767676ff",
         tabBarInactiveTintColor: "#666",
         tabBarStyle: {
-          backgroundColor: theme.navBackground,
+          backgroundColor: theme.navBackground || "#fff",
         },
-        headerShown: false, // Hide header since we have it in root layout
+        headerShown: false,
       })}
     >
       <Tabs.Screen
@@ -42,34 +42,8 @@ export default function TabLayout() {
           tabBarLabel: "Home",
         }}
       />
-      <Tabs.Screen
-        name="progress"
-        options={{
-          title: "Progress",
-          tabBarLabel: "Progress",
-        }}
-      />
-      <Tabs.Screen
-        name="timer"
-        options={{
-          title: "Timer",
-          tabBarLabel: "Timer",
-        }}
-      />
-      <Tabs.Screen
-        name="techniques"
-        options={{
-          title: "Techniques",
-          tabBarLabel: "Techniques",
-        }}
-      />
-      <Tabs.Screen
-        name="more"
-        options={{
-          title: "More",
-          tabBarLabel: "More",
-        }}
-      />
+      <Tabs.Screen name="apnea" options={{ title: "Time Your Breath" }} />
+      <Tabs.Screen name="progress" options={{ title: "Progress" }} />
     </Tabs>
   );
 }

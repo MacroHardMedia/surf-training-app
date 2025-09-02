@@ -17,6 +17,7 @@ import ThemedText from "../../components/ThemedText";
 import Spacer from "../../components/Spacer";
 
 const Home = () => {
+  // Dark mode
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme] ?? Colors.light;
 
