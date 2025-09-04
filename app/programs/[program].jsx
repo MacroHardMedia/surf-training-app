@@ -29,7 +29,7 @@ export default function ProgramDetail() {
           <Text style={[styles.headerTitle]}>Program Not Found</Text>
         </View>
         <Text style={styles.errorText}>
-          Hang tight! We're still working on this section 🤙
+          Hang tight! This section is under construction 🤙
         </Text>
       </SafeAreaView>
     );
@@ -54,24 +54,43 @@ export default function ProgramDetail() {
           <Text style={styles.programDescription}>
             {currentProgram.description}
           </Text>
+
           <Spacer />
-          <Text style={styles.programDifficulty}>
-            {currentProgram.instructions}
-          </Text>
+
+          {currentProgram.instructions && (
+            <View style={styles.instructionList}>
+              {(Array.isArray(currentProgram.instructions)
+                ? currentProgram.instructions
+                : currentProgram.instructions.split(/\n+/)
+              ).map((item, i) => (
+                <View key={`instr-${i}`} style={[styles.bulletItem]}>
+                  <Text style={styles.bullet}>•</Text>
+                  <Text style={styles.bulletText}>{String(item).trim()}</Text>
+                </View>
+              ))}
+            </View>
+          )}
+
           <Spacer />
-          <Text style={styles.programDuration}>
-            Duration: {currentProgram.duration}
-          </Text>
-          <Text style={styles.programDifficulty}>
-            Difficulty: {currentProgram.difficulty}
-          </Text>
+
+          {currentProgram.duration && (
+            <Text style={styles.programDuration}>
+              {currentProgram.duration}
+            </Text>
+          )}
+
+          {currentProgram.difficulty && (
+            <Text style={styles.programDifficulty}>
+              Difficulty: {currentProgram.difficulty}
+            </Text>
+          )}
         </View>
 
         {/* Exercise Sections */}
         {currentProgram.sections &&
           currentProgram.sections.map((section, sectionIndex) => (
             <View key={sectionIndex} style={styles.exerciseSection}>
-              <Text style={styles.sectionTitle}>{section.bodyPart}</Text>
+              <Text style={styles.sectionTitle}>{section.group}</Text>
 
               {section.exercises.map((exercise, exerciseIndex) => (
                 <View key={exerciseIndex} style={styles.exerciseCard}>
@@ -79,8 +98,28 @@ export default function ProgramDetail() {
                   <Text style={styles.exerciseDescription}>
                     {exercise.description}
                   </Text>
+
+                  {/* Steps */}
+                  {Array.isArray(exercise.steps) && (
+                    <View style={styles.stepList}>
+                      {exercise.steps.map((step, sIdx) => (
+                        <View
+                          key={`step-${exerciseIndex}-${sIdx}`}
+                          style={styles.stepItem}
+                        >
+                          <Text style={styles.stepIndex}>{sIdx + 1}.</Text>
+                          <Text style={styles.stepText}>
+                            {String(step).trim()}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  )}
+
                   <Text style={styles.exerciseReps}>{exercise.reps}</Text>
-                  <Text style={styles.exerciseTips}>💡 {exercise.tips}</Text>
+                  {exercise.tips && (
+                    <Text style={styles.exerciseTips}>💡 {exercise.tips}</Text>
+                  )}
                 </View>
               ))}
             </View>
@@ -135,10 +174,49 @@ const styles = StyleSheet.create({
   programDifficulty: {
     fontSize: 14,
     fontWeight: "bold",
+    color: "#6a6a6aff",
   },
   programInstructions: {
     marginTop: 8,
     fontSize: 14,
+    color: "#444",
+  },
+  stepList: { marginTop: 8 },
+  stepItem: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: 6,
+  },
+  stepIndex: {
+    width: 22,
+    fontSize: 15,
+    fontWeight: "700",
+    color: "#444",
+    marginRight: 6,
+    textAlign: "right",
+    lineHeight: 20,
+  },
+  stepText: {
+    flex: 1,
+    fontSize: 14,
+    color: "#444",
+    lineHeight: 20,
+  },
+  bulletItem: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    paddingRight: 5,
+  },
+  bullet: {
+    width: 18,
+    fontSize: 16,
+    lineHeight: 20,
+    color: "#333",
+  },
+  bulletText: {
+    flex: 1,
+    fontSize: 14,
+    lineHeight: 20,
     color: "#444",
   },
   content: { flex: 1 },

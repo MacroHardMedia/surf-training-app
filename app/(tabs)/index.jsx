@@ -32,7 +32,7 @@ const Home = () => {
         logo: "Tropa Surf",
         programs: [
           { title: "Daily Movement Drill", color: "#87CEEB", size: 150 },
-          { title: "3 Month Training Program", color: "#87CEEB", size: 150 },
+          { title: "Beginner Fullbody Workout", color: "#87CEEB", size: 150 },
           { title: "Endurance", color: "#87CEEB", size: 150 },
           { title: "Static Stretching", color: "#87CEEB", size: 150 },
         ],

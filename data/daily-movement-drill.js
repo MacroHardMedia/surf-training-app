@@ -9,7 +9,7 @@ export const dailyMovementDrill = {
   difficulty: "Beginner",
   sections: [
     {
-      bodyPart: "Hips",
+      group: "Hips",
       exercises: [
         {
           name: "Hip Circles",
@@ -35,7 +35,7 @@ export const dailyMovementDrill = {
       ],
     },
     {
-      bodyPart: "Shoulders",
+      group: "Shoulders",
       exercises: [
         {
           name: "Arm Circles",
@@ -60,7 +60,7 @@ export const dailyMovementDrill = {
       ],
     },
     {
-      bodyPart: "Spine",
+      group: "Spine",
       exercises: [
         {
           name: "Cat-Cow Stretches",
@@ -85,7 +85,7 @@ export const dailyMovementDrill = {
       ],
     },
     {
-      bodyPart: "Neck",
+      group: "Neck",
       exercises: [
         {
           name: "Neck Rolls",
@@ -109,7 +109,7 @@ export const dailyMovementDrill = {
       ],
     },
     {
-      bodyPart: "Hamstrings",
+      group: "Hamstrings",
       exercises: [
         {
           name: "Standing Hamstring Stretch",
@@ -133,7 +133,7 @@ export const dailyMovementDrill = {
       ],
     },
     {
-      bodyPart: "Calves",
+      group: "Calves",
       exercises: [
         {
           name: "Calf Raises",
@@ -158,7 +158,7 @@ export const dailyMovementDrill = {
       ],
     },
     {
-      bodyPart: "Ankles",
+      group: "Ankles",
       exercises: [
         {
           name: "Ankle Circles",
