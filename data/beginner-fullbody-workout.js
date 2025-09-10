@@ -1,23 +1,24 @@
 export const beginnerFullBodyWorkout = {
-  title: "Beginner Full‑Body Workout",
+  title: "Beginner Surf Foundational",
   description:
-    "Simple, repeatable 4‑day beginner program teaching fundamental movement patterns. Focus on consistent practice, proper form, and gradual progression.",
-  difficulty: "Beginner",
+    "Greetings! This section will help you develop the basic fundamental movement patterns. These movement patterns are important to doing more advanced exercises safely.\n\n Progress is made by showing up regularly. Missing a day isn't a big deal, but to see results we must be consistent!",
   instructions: [
-    "Move controlled, prioritize full range and technique.",
+    "Move controlled, prioritize full range of motion and technique.",
     "Rest 60–90s between compound sets, 30–60s for accessory/core.",
-    "Train 3–4×/week.",
+    "Strength Train 3×/week.",
+    "Mobility work everyday.",
+    "Cardio every rest day.",
     "Consistency is key 🔑",
   ],
   structure: {
     split:
-      "Push / Pull / Legs / Core or 3-day push/pull/legs with core added to each session",
+      "Train three sessions per week push/pull/legs with core added to each session, and cardio on between days",
     weekExample: [
-      "Mon — Push",
-      "Tue — Pull",
-      "Wed — Rest or light mobility",
-      "Thu — Legs",
-      "Fri — Core (or full-body light)",
+      "Mon — Push/Core",
+      "Tue — Rest",
+      "Wed — Pull/Core",
+      "Thu — Rest",
+      "Fri — Legs/Core",
       "Sat — Active recovery / walk / surf",
       "Sun — Rest",
     ],
@@ -56,7 +57,7 @@ export const beginnerFullBodyWorkout = {
       ],
     },
     {
-      group: "Push",
+      group: "Workout A",
       exercises: [
         {
           name: "Scapular Push‑Up (knee or incline if needed)",
@@ -98,18 +99,26 @@ export const beginnerFullBodyWorkout = {
           reps: "8–15",
           rest: "45–60s",
         },
-        // {
-        //   name: "Lateral Raise (light)",
-        //   description: "Shoulder health and endurance; strict tempo.",
-        //   sets: 2,
-        //   reps: "12–15",
-        //   rest: "30–45s",
-        // },
+        {
+          name: "Lateral Raise (optional)",
+          description: "Shoulder health and endurance; strict tempo.",
+          sets: 2,
+          reps: "12–15",
+          rest: "30–45s",
+        },
       ],
     },
     {
-      group: "Pull",
+      group: "Workout B",
       exercises: [
+        {
+          name: "Romanian Deadlift (dumbbell) or Hip Hinge",
+          description:
+            "Posterior chain: hinge from hips, maintain neutral spine.",
+          sets: 3,
+          reps: "8–12",
+          rest: "60–90s",
+        },
         {
           name: "Inverted Row or Band Row",
           description:
@@ -134,17 +143,10 @@ export const beginnerFullBodyWorkout = {
           reps: "12–20",
           rest: "30–45s",
         },
-        {
-          name: "Biceps Curl (dumbbell/band)",
-          description: "Accessory arm work; controlled tempo.",
-          sets: 2,
-          reps: "10–15",
-          rest: "30–45s",
-        },
       ],
     },
     {
-      group: "Legs",
+      group: "Workout C",
       exercises: [
         {
           name: "Squat (bodyweight / goblet)",

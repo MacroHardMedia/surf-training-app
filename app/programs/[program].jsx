@@ -19,6 +19,18 @@ export default function ProgramDetail() {
   // Look up the program data
   const currentProgram = programsData[program];
 
+  // Helper function for arrays
+
+  const toArray = (v) =>
+    Array.isArray(v)
+      ? v
+      : v
+      ? String(v)
+          .split(/\n/)
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [];
+
   if (!currentProgram) {
     return (
       <SafeAreaView style={styles.container}>
@@ -59,6 +71,11 @@ export default function ProgramDetail() {
 
           {currentProgram.instructions && (
             <View style={styles.instructionList}>
+              <Text
+                style={{ fontSize: 15, fontWeight: "bold", marginBottom: 10 }}
+              >
+                Quick tips:
+              </Text>
               {(Array.isArray(currentProgram.instructions)
                 ? currentProgram.instructions
                 : currentProgram.instructions.split(/\n+/)
@@ -66,6 +83,37 @@ export default function ProgramDetail() {
                 <View key={`instr-${i}`} style={[styles.bulletItem]}>
                   <Text style={styles.bullet}>•</Text>
                   <Text style={styles.bulletText}>{String(item).trim()}</Text>
+                </View>
+              ))}
+            </View>
+          )}
+          <Spacer />
+
+          {/* Weekly Split */}
+          {currentProgram.structure?.split && (
+            <Text style={styles.structureText}>
+              {currentProgram.structure.split}
+            </Text>
+          )}
+
+          <Spacer />
+
+          {/* Weekly Program */}
+          {currentProgram.structure?.weekExample && (
+            <View style={styles.structureList}>
+              <Text
+                style={{ fontSize: 15, fontWeight: "bold", marginBottom: 10 }}
+              >
+                Week Example:
+              </Text>
+              {(Array.isArray(currentProgram.structure.weekExample)
+                ? currentProgram.structure.weekExample
+                : currentProgram.structure.split(/\n+/)
+              ).map((item, i) => (
+                <View key={`instr-${i}`} style={[styles.bulletItem]}>
+                  <Text style={styles.structureText}>
+                    {String(item).trim()}
+                  </Text>
                 </View>
               ))}
             </View>

@@ -31,8 +31,24 @@ const Home = () => {
         backgroundColor: "#fff",
         logo: "Tropa Surf",
         programs: [
-          { title: "Daily Movement Drill", color: "#87CEEB", size: 150 },
+          {
+            title: "Daily Movement Drill",
+            backgroundImage: require("../../assets/backside-hit.png"),
+            color: "#87CEEB",
+            size: 150,
+          },
           { title: "Beginner Fullbody Workout", color: "#87CEEB", size: 150 },
+          {
+            title: "Intermediate Fullbody Workout",
+            color: "#87CEEB",
+            size: 150,
+          },
+          {
+            title: "Surf Beginner Month One",
+            color: "#87CEEB",
+            size: 150,
+          },
+
           { title: "Endurance", color: "#87CEEB", size: 150 },
           { title: "Static Stretching", color: "#87CEEB", size: 150 },
         ],
@@ -100,6 +116,7 @@ const Home = () => {
             title={program.title}
             color={program.color}
             size={program.size || 100}
+            backgroundImage={program.backgroundImage}
           />
         ))}
       </ScrollView>

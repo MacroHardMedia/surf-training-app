@@ -7,6 +7,7 @@ export const dailyMovementDrill = {
   instructions:
     "Spend atleast 10 minutes a day of mobility movements. Spend about 1 - 2 minutes per exercise on each side. \n\n Make sure to go at your own pace, but also with the goal of challenging yourslef.",
   difficulty: "Beginner",
+
   sections: [
     {
       group: "Hips",
