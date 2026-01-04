@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
+import { programsData } from "../data/index";
 
 export default function ProgramCard({
+  id,
   title,
   backgroundImage,
   color = "#eee",
@@ -16,7 +18,13 @@ export default function ProgramCard({
   const router = useRouter();
 
   const handlePress = () => {
-    router.push(`/programs/${encodeURIComponent(title)}`);
+    // Check if this program has a custom route in programsData
+    const programData = programsData[id];
+    if (programData?.customRoute) {
+      router.push(programData.customRoute);
+    } else {
+      router.push(`/programs/${encodeURIComponent(id)}`);
+    }
   };
 
   return (

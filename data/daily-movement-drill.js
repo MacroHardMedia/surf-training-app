@@ -1,7 +1,7 @@
-export const dailyMovementDrill = {
-  title: "Daily Movement Drill",
+export const dailyMobilityDrill = {
+  title: "Daily Mobility Drill",
   description:
-    "Essential daily movements to improve your surf performance, mobility, and prevent injury. Focus on key areas that surfers use most. Set a timer for 15 or so minutes per day.",
+    "This is a personal mobility drill I’ve been practicing for many years. It targets key movement patterns that improve range of motion, enhance flexibility, and help prevent injuries. Feel free to use this as a warm-up before a surf.",
   video: "https://example.com/daily-movement.mp4",
   duration: "20-25 min",
   instructions:
@@ -33,6 +33,13 @@ export const dailyMovementDrill = {
           reps: "Hold 30 seconds each leg",
           tips: "Squeeze glutes of back leg, keep front knee over ankle",
         },
+        {
+          name: "Hip Thrusts",
+          description:
+            "Lie on your back with knees bent, feet flat on floor. Drive through heels to lift hips up, creating a straight line from knees to shoulders.",
+          reps: "15-20 repetitions",
+          tips: "Squeeze glutes of back leg, keep front knee over ankle. Use a resistance band around your knees to activate glutes more.",
+        },
       ],
     },
     {
@@ -58,27 +65,34 @@ export const dailyMovementDrill = {
           reps: "15-20 repetitions",
           tips: "Keep arms, back, and head against wall throughout movement",
         },
+        {
+          name: "Banded/Leash Shoulder Dislocates",
+          description:
+            "Hold a surfboard leash or resistance band with a wide grip in front of your body. Slowly raise it overhead and behind your back, then return to the front. This opens up the shoulders for better paddling and overhead mobility.",
+          reps: "10–15 repetitions",
+          tips: "Keep arms straight, move slowly, and widen your grip if shoulders feel tight. Focus on smooth motion and avoid shrugging. You don't have to use a surfboard lease. Feel free to use a jump rope or a towel.",
+        },
       ],
     },
     {
       group: "Spine",
       exercises: [
         {
-          name: "Cat-Cow Stretches",
+          name: "Cobra Pose",
           description:
             "On hands and knees, arch and round your back alternately.",
           reps: "10-15 repetitions",
           tips: "Move slowly, breathe with each movement",
         },
         {
-          name: "Spinal Twists",
+          name: "Seated Spinal Twists",
           description:
             "Sit cross-legged. Place one hand behind you, twist gently in each direction.",
           reps: "Hold 30 seconds each side",
           tips: "Keep spine tall, initiate twist from core",
         },
         {
-          name: "Standing Forward Fold",
+          name: "QL Stretch",
           description: "Bend forward from hips, let arms hang heavy.",
           reps: "Hold 30-45 seconds",
           tips: "Bend knees slightly, sway gently side to side",

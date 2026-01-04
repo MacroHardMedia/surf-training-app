@@ -1,6 +1,5 @@
 import {
   ImageBackground,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/Colors";
+import { SafeAreaView } from "react-native-safe-area-context";
 import ProgramCard from "../../components/ProgramCard";
 
 // Themed
@@ -27,30 +27,41 @@ const Home = () => {
     sections: [
       {
         title: "Recommended",
-        description: "Here you'll find our most recommended programs",
+        description: "Here you'll find programs tailored for you",
         backgroundColor: "#fff",
         logo: "Tropa Surf",
         programs: [
           {
-            title: "Daily Movement Drill",
-            backgroundImage: require("../../assets/backside-hit.png"),
-            color: "#87CEEB",
-            size: 150,
+            id: "3-month-surf-plan",
+            title: "3 Month Surf Fitness Plan",
+            backgroundImage: require("../../assets/IMG_1488.jpg"),
           },
-          { title: "Beginner Fullbody Workout", color: "#87CEEB", size: 150 },
           {
+            id: "warmup-routine",
+            title: "Surf Athlete Warm-up",
+            backgroundImage: require("../../assets/me-beach-yoga.png"),
+            color: "#FFB347",
+          },
+          // {
+          //   id: "daily-mobility-drill",
+          //   title: "Mobility Drill",
+          //   backgroundImage: require("../../assets/me-beach-yoga.png"),
+          //   color: "#87CEEB",
+          // },
+          {
+            id: "beginner-fullbody",
+            title: "Beginner Fullbody Workout",
+            color: "#87CEEB",
+
+            backgroundImage: require("../../assets/IMG_1488.jpg"),
+          },
+          {
+            id: "intermediate-fullbody",
             title: "Intermediate Fullbody Workout",
             color: "#87CEEB",
-            size: 150,
-          },
-          {
-            title: "Surf Beginner Month One",
-            color: "#87CEEB",
-            size: 150,
-          },
 
-          { title: "Endurance", color: "#87CEEB", size: 150 },
-          { title: "Static Stretching", color: "#87CEEB", size: 150 },
+            backgroundImage: require("../../assets/goofy-barrel.png"),
+          },
         ],
       },
       {
@@ -77,7 +88,7 @@ const Home = () => {
         ],
       },
       {
-        title: "Forum",
+        title: "Community",
         description:
           "Link up with other people, and talk about what you've learned.",
         backgroundColor: "#f0f0f0ff",
@@ -104,6 +115,7 @@ const Home = () => {
       <Text style={styles.text}>{section.description}</Text>
 
       <Spacer />
+      <Spacer />
 
       <ScrollView
         horizontal
@@ -113,9 +125,10 @@ const Home = () => {
         {section.programs.map((program, idx) => (
           <ProgramCard
             key={idx}
+            id={program.id}
             title={program.title}
             color={program.color}
-            size={program.size || 100}
+            size={styles.cardSize.width}
             backgroundImage={program.backgroundImage}
           />
         ))}
@@ -126,11 +139,9 @@ const Home = () => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ThemedView style={{ flex: 1 }}>
-        <ScrollView>{details.sections.map(renderSection)}</ScrollView>
-      </ThemedView>
-    </SafeAreaView>
+    <ThemedView style={{ flex: 1 }}>
+      <ScrollView>{details.sections.map(renderSection)}</ScrollView>
+    </ThemedView>
   );
 };
 
@@ -147,4 +158,8 @@ const styles = StyleSheet.create({
     color: "#484848ff",
   },
   text: { color: "#818181ff", marginLeft: 25 },
+  cardSize: {
+    width: 160,
+    height: 160,
+  },
 });

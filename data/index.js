@@ -1,12 +1,23 @@
 import { beginnerFullBodyWorkout } from "./beginner-fullbody-workout";
-import { dailyMovementDrill } from "./daily-movement-drill";
+import { dailyMobilityDrill } from "./daily-movement-drill";
 import { intermediateFullBodyWorkout } from "./intermediate-fullbody-workout";
-import surfBeginnerMonth1 from "./surfBeginnerMonthOne";
+import { surfMonth1 } from "./surf-fitness-month1";
+import { surfMonth2 } from "./surf-fitness-month2";
+import { surfMonth3 } from "./surf-fitness-month3";
+import { warmupRoutine } from "./warmupRoutine";
 // Add more imports as you create them
 
 export const programsData = {
-  "Daily Movement Drill": dailyMovementDrill,
-  "Beginner Fullbody Workout": beginnerFullBodyWorkout,
-  "Intermediate Fullbody Workout": intermediateFullBodyWorkout,
-  "Surf Beginner Month One": surfBeginnerMonth1,
+  "daily-mobility-drill": dailyMobilityDrill,
+  "beginner-fullbody": beginnerFullBodyWorkout,
+  "intermediate-fullbody": intermediateFullBodyWorkout,
+  "warmup-routine": warmupRoutine,
+
+  "3-month-surf-plan": {
+    customRoute: "/programs/surf-fitness-3-month",
+    isCustomPage: true,
+  },
+  "surf-month-1": surfMonth1,
+  "surf-month-2": surfMonth2,
+  "surf-month-3": surfMonth3,
 };

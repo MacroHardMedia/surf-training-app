@@ -3,12 +3,12 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { programsData } from "../../data/index";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../../components/Spacer";
 
 export default function ProgramDetail() {
@@ -31,7 +31,7 @@ export default function ProgramDetail() {
           .filter(Boolean)
       : [];
 
-  if (!currentProgram) {
+  if (!currentProgram || currentProgram.isCustomPage) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
@@ -62,19 +62,17 @@ export default function ProgramDetail() {
 
       <ScrollView style={styles.content}>
         {/* Program Info */}
-        <View style={styles.programInfo}>
-          <Text style={styles.programDescription}>
+        <View style={[styles.programInfo, { paddingBottom: 10 }]}>
+          <Text style={[styles.programDescription, { paddingBottom: 10 }]}>
             {currentProgram.description}
           </Text>
 
-          <Spacer />
-
           {currentProgram.instructions && (
-            <View style={styles.instructionList}>
+            <View style={[styles.instructionList, { paddingBottom: 10 }]}>
               <Text
                 style={{ fontSize: 15, fontWeight: "bold", marginBottom: 10 }}
               >
-                Quick tips:
+                What to know:
               </Text>
               {(Array.isArray(currentProgram.instructions)
                 ? currentProgram.instructions
@@ -87,16 +85,13 @@ export default function ProgramDetail() {
               ))}
             </View>
           )}
-          <Spacer />
 
           {/* Weekly Split */}
           {currentProgram.structure?.split && (
-            <Text style={styles.structureText}>
+            <Text style={[styles.structureText, { paddingBottom: 10 }]}>
               {currentProgram.structure.split}
             </Text>
           )}
-
-          <Spacer />
 
           {/* Weekly Program */}
           {currentProgram.structure?.weekExample && (
@@ -118,8 +113,6 @@ export default function ProgramDetail() {
               ))}
             </View>
           )}
-
-          <Spacer />
 
           {currentProgram.duration && (
             <Text style={styles.programDuration}>
@@ -164,7 +157,13 @@ export default function ProgramDetail() {
                     </View>
                   )}
 
-                  <Text style={styles.exerciseReps}>{exercise.reps}</Text>
+                  <Text style={styles.exerciseReps}>Reps: {exercise.reps}</Text>
+                  <Text style={styles.exerciseSets}>Sets: {exercise.sets}</Text>
+                  {exercise.progression && (
+                    <Text style={styles.exerciseProgression}>
+                      📈 Progression: {exercise.progression}
+                    </Text>
+                  )}
                   {exercise.tips && (
                     <Text style={styles.exerciseTips}>💡 {exercise.tips}</Text>
                   )}
@@ -310,6 +309,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#007AFF",
     marginBottom: 6,
+  },
+  exerciseSets: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#007bffff",
+    marginBottom: 6,
+  },
+  exerciseProgression: {
+    fontSize: 13,
+    color: "#28a745",
+    fontWeight: "600",
+    marginTop: 4,
+    marginBottom: 6,
+    lineHeight: 18,
   },
   exerciseTips: {
     fontSize: 12,

@@ -1,7 +1,7 @@
 export const beginnerFullBodyWorkout = {
   title: "Beginner Surf Foundational",
   description:
-    "Greetings! This section will help you develop the basic fundamental movement patterns. These movement patterns are important to doing more advanced exercises safely.\n\n Progress is made by showing up regularly. Missing a day isn't a big deal, but to see results we must be consistent!",
+    "In this section you will build a solid foundation for more advanced exercieses!",
   instructions: [
     "Move controlled, prioritize full range of motion and technique.",
     "Rest 60–90s between compound sets, 30–60s for accessory/core.",
