@@ -3,13 +3,12 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
 } from "react-native";
 import React from "react";
-import { Colors } from "../../constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ProgramCard from "../../components/ProgramCard";
+import { useTheme } from "../../contexts/ThemeContext";
 
 // Themed
 import ThemedView from "../../components/ThemedView";
@@ -17,9 +16,8 @@ import ThemedText from "../../components/ThemedText";
 import Spacer from "../../components/Spacer";
 
 const Home = () => {
-  // Dark mode
-  const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.light;
+  // Use global theme
+  const { theme } = useTheme();
 
   // Content Details
 
@@ -28,7 +26,7 @@ const Home = () => {
       {
         title: "Recommended",
         description: "Here you'll find programs tailored for you",
-        backgroundColor: "#fff",
+        backgroundColor: theme.background,
         logo: "Tropa Surf",
         programs: [
           {
@@ -62,12 +60,18 @@ const Home = () => {
 
             backgroundImage: require("../../assets/goofy-barrel.png"),
           },
+          {
+            id: "popup-routine",
+            title: "Pop-up Refinement",
+            backgroundImage: require("../../assets/IMG_1488.jpg"),
+            color: "#FF6B6B",
+          },
         ],
       },
       {
         title: "Exercise Routines",
         description: "This is where you will find different exercises",
-        backgroundColor: "#f0f0f0ff",
+        backgroundColor: theme.cardBackground,
         programs: [
           { title: "Total Core", color: "#90EE90" },
           { title: "Strength Training", color: "#90EE90" },
@@ -79,7 +83,7 @@ const Home = () => {
       {
         title: "Surf Technique",
         description: "Here you will find lessons on techniques",
-        backgroundColor: "#fff",
+        backgroundColor: theme.background,
         programs: [
           { title: "Stance", color: "#FFD700" },
           { title: "Frontside Turns", color: "#FFD700" },
@@ -91,7 +95,7 @@ const Home = () => {
         title: "Community",
         description:
           "Link up with other people, and talk about what you've learned.",
-        backgroundColor: "#f0f0f0ff",
+        backgroundColor: theme.cardBackground,
         programs: [
           { title: "General", color: "#a12fffff" },
           { title: "Technique Discussion", color: "#a12fffff" },
@@ -112,7 +116,9 @@ const Home = () => {
       <ThemedText style={styles.title} title={true}>
         {section.title}
       </ThemedText>
-      <Text style={styles.text}>{section.description}</Text>
+      <Text style={[styles.text, { color: theme.textSecondary }]}>
+        {section.description}
+      </Text>
 
       <Spacer />
       <Spacer />
@@ -155,9 +161,8 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     marginLeft: 25,
     paddingBottom: 5,
-    color: "#484848ff",
   },
-  text: { color: "#818181ff", marginLeft: 25 },
+  text: { marginLeft: 25 },
   cardSize: {
     width: 160,
     height: 160,

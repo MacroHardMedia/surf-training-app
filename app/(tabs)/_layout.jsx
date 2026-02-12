@@ -1,11 +1,9 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { useColorScheme } from "react-native";
-import { Colors } from "../../constants/Colors";
+import { useTheme } from "../../contexts/ThemeContext";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const theme = Colors[colorScheme] ?? Colors.light;
+  const { theme } = useTheme();
 
   return (
     <Tabs
@@ -27,10 +25,11 @@ export default function TabLayout() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: theme.tint || "#767676ff",
-        tabBarInactiveTintColor: "#666",
+        tabBarActiveTintColor: theme.primary,
+        tabBarInactiveTintColor: theme.textTertiary,
         tabBarStyle: {
-          backgroundColor: theme.navBackground || "#fff",
+          backgroundColor: theme.cardBackground,
+          borderTopColor: theme.border,
         },
         headerShown: false,
       })}
@@ -43,7 +42,32 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen name="apnea" options={{ title: "Time Your Breath" }} />
+
       <Tabs.Screen name="progress" options={{ title: "Progress" }} />
+
+      <Tabs.Screen
+        name="library"
+        options={{
+          title: "Library",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "library" : "library-outline"}
+              size={24}
+              color={color}
+            />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

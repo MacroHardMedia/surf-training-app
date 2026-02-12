@@ -1,25 +1,21 @@
 import { Stack } from "expo-router";
-import { Text, useColorScheme } from "react-native";
-import { Colors } from "../constants/Colors";
+import { Text } from "react-native";
+import { ThemeProvider, useTheme } from "../contexts/ThemeContext";
 
-// Themed
-
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  console.log(colorScheme);
-  const theme = Colors[colorScheme] ?? Colors.light;
+function RootNavigator() {
+  const { theme } = useTheme();
 
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: theme.navBackground },
-        headerTintColor: theme.title,
+        headerStyle: { backgroundColor: theme.background },
+        headerTintColor: theme.text,
         headerTitle: () => (
           <Text
             style={{
               fontSize: 20,
               fontWeight: "bold",
-              color: theme.title,
+              color: theme.text,
             }}
           >
             Total Surf App
@@ -37,5 +33,13 @@ export default function RootLayout() {
         }}
       />
     </Stack>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ThemeProvider>
+      <RootNavigator />
+    </ThemeProvider>
   );
 }
