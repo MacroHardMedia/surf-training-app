@@ -29,6 +29,12 @@ export const exerciseCategories = {
     description: "Core strengthening and stability exercises",
     icon: "💎",
   },
+  shoulder: {
+    id: "shoulder",
+    name: "Shoulder",
+    icon: "💪", // or whatever icon you prefer
+    color: "#FF6B6B", // optional color
+  },
   cardio: {
     id: "cardio",
     name: "Cardiovascular",
@@ -52,6 +58,24 @@ export const exerciseCategories = {
     name: "Balance & Coordination",
     description: "Exercises for balance and coordination",
     icon: "🧘",
+  },
+  isometric: {
+    id: "isometric",
+    name: "Isometric Holds",
+    description: "Static strength exercises that build stability and endurance",
+    icon: "⏱️",
+  },
+  power: {
+    id: "power",
+    name: "Power",
+    description: "Explossive generation of force",
+    icon: "💥",
+  },
+  naturalMovement: {
+    id: "naturalMovement",
+    name: "Natural Movement",
+    description: "Bodyweight natural movement. No equipment necessary.",
+    icon: "🦍",
   },
 };
 

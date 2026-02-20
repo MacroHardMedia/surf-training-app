@@ -2,10 +2,10 @@ import {
   View,
   Text,
   StyleSheet,
-  ScrollView,
+  FlatList,
   TouchableOpacity,
 } from "react-native";
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { programsData } from "../../data/index";
@@ -13,55 +13,56 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../contexts/ThemeContext";
 import Spacer from "../../components/Spacer";
 
+// Move helper function outside component for better performance
+const toArray = (v) =>
+  Array.isArray(v)
+    ? v
+    : v
+      ? String(v)
+          .split(/\n/)
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [];
+
 export default function ProgramDetail() {
   // Gets program name from URL
   const { program } = useLocalSearchParams();
   const { theme } = useTheme();
+  const router = useRouter();
 
-  // Look up the program data
-  const currentProgram = programsData[program];
+  // Look up the program data - memoize to prevent unnecessary lookups
+  const currentProgram = useMemo(() => programsData[program], [program]);
 
-  // State for section expansions - default all to true (expanded)
+  // State for section expansions
   const [expandedSections, setExpandedSections] = useState({});
   const [expandedSubsections, setExpandedSubsections] = useState({});
   const [expandedSteps, setExpandedSteps] = useState({});
 
-  const styles = getStyles(theme);
+  // Memoize styles to prevent recreation on every render
+  const styles = useMemo(() => getStyles(theme), [theme]);
 
-  const toggleSection = (index) => {
+  // Memoize toggle functions to maintain referential equality
+  const toggleSection = useCallback((index) => {
     setExpandedSections((prev) => ({
       ...prev,
       [index]: prev[index] === undefined ? false : !prev[index],
     }));
-  };
+  }, []);
 
-  const toggleSubsection = (sectionIndex, subIndex) => {
+  const toggleSubsection = useCallback((sectionIndex, subIndex) => {
     const key = `${sectionIndex}-${subIndex}`;
     setExpandedSubsections((prev) => ({
       ...prev,
       [key]: prev[key] === undefined ? false : !prev[key],
     }));
-  };
+  }, []);
 
-  const toggleSteps = (key) => {
+  const toggleSteps = useCallback((key) => {
     setExpandedSteps((prev) => ({
       ...prev,
       [key]: !prev[key],
     }));
-  };
-
-  const router = useRouter();
-
-  // Helper function for arrays
-  const toArray = (v) =>
-    Array.isArray(v)
-      ? v
-      : v
-        ? String(v)
-            .split(/\n/)
-            .map((s) => s.trim())
-            .filter(Boolean)
-        : [];
+  }, []);
 
   if (!currentProgram || currentProgram.isCustomPage) {
     return (
@@ -86,15 +87,21 @@ export default function ProgramDetail() {
         <TouchableOpacity
           onPress={() => router.back()}
           style={styles.backButton}
+          accessibilityRole="button"
+          accessibilityLabel="Go back"
+          accessibilityHint="Returns to previous screen"
         >
           <Ionicons name="arrow-back" size={24} color={theme.text} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{currentProgram.title}</Text>
       </View>
 
-      <ScrollView style={styles.content}>
-        {/* Program Info */}
-        <View style={[styles.programInfo, { paddingBottom: 10 }]}>
+      <FlatList
+        style={styles.content}
+        data={currentProgram.sections || []}
+        keyExtractor={(item, index) => `section-${index}`}
+        ListHeaderComponent={() => (
+          <View style={[styles.programInfo, { paddingBottom: 10 }]}>
           <Text style={[styles.programDescription, { paddingBottom: 10 }]}>
             {currentProgram.description}
           </Text>
@@ -167,11 +174,9 @@ export default function ProgramDetail() {
               Difficulty: {currentProgram.difficulty}
             </Text>
           )}
-        </View>
-
-        {/* Exercise Sections - NOW COLLAPSIBLE */}
-        {currentProgram.sections &&
-          currentProgram.sections.map((section, sectionIndex) => {
+          </View>
+        )}
+        renderItem={({ item: section, index: sectionIndex }) => {
             const isExpanded = expandedSections[sectionIndex] === true; // Default to collapsed
 
             // Skip sections without a group property
@@ -186,6 +191,10 @@ export default function ProgramDetail() {
                   style={styles.sectionHeaderButton}
                   onPress={() => toggleSection(sectionIndex)}
                   activeOpacity={0.7}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${section.group} section`}
+                  accessibilityState={{ expanded: isExpanded }}
+                  accessibilityHint={`Tap to ${isExpanded ? 'collapse' : 'expand'} section`}
                 >
                   <Text style={styles.sectionTitle}>{section.group}</Text>
                   <Ionicons
@@ -218,6 +227,10 @@ export default function ProgramDetail() {
                                   toggleSubsection(sectionIndex, subIndex)
                                 }
                                 activeOpacity={0.7}
+                                accessibilityRole="button"
+                                accessibilityLabel={`${subsection.group} subsection`}
+                                accessibilityState={{ expanded: isSubExpanded }}
+                                accessibilityHint={`Tap to ${isSubExpanded ? 'collapse' : 'expand'} subsection`}
                               >
                                 <Text style={styles.subsectionTitle}>
                                   {subsection.group}
@@ -287,6 +300,10 @@ export default function ProgramDetail() {
                                                       alignItems: "center",
                                                       marginBottom: 8,
                                                     }}
+                                                    accessibilityRole="button"
+                                                    accessibilityLabel="Exercise steps"
+                                                    accessibilityState={{ expanded: isStepsExpanded }}
+                                                    accessibilityHint={`Tap to ${isStepsExpanded ? 'hide' : 'show'} steps`}
                                                   >
                                                     <Text
                                                       style={
@@ -467,6 +484,10 @@ export default function ProgramDetail() {
                                             alignItems: "center",
                                             marginBottom: 8,
                                           }}
+                                          accessibilityRole="button"
+                                          accessibilityLabel="Exercise steps"
+                                          accessibilityState={{ expanded: isStepsExpanded }}
+                                          accessibilityHint={`Tap to ${isStepsExpanded ? 'hide' : 'show'} steps`}
                                         >
                                           <Text style={styles.exerciseDetail}>
                                             📋{" "}
@@ -542,21 +563,26 @@ export default function ProgramDetail() {
                 )}
               </View>
             );
-          })}
-
-        {/* General Tips Section */}
-        {currentProgram.tips && (
-          <View style={styles.tipsSection}>
-            <Text style={styles.sectionTitle}>General Tips</Text>
-            {currentProgram.tips.map((tip, index) => (
-              <View key={index} style={styles.tipItem}>
-                <Ionicons name="bulb" size={16} color="#FFD700" />
-                <Text style={styles.tipText}>{tip}</Text>
-              </View>
-            ))}
-          </View>
+        }}
+        ListFooterComponent={() => (
+          currentProgram.tips && (
+            <View style={styles.tipsSection}>
+              <Text style={styles.sectionTitle}>General Tips</Text>
+              {currentProgram.tips.map((tip, index) => (
+                <View key={index} style={styles.tipItem}>
+                  <Ionicons name="bulb" size={16} color="#FFD700" />
+                  <Text style={styles.tipText}>{tip}</Text>
+                </View>
+              ))}
+            </View>
+          )
         )}
-      </ScrollView>
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={50}
+        initialNumToRender={5}
+        windowSize={5}
+      />
     </SafeAreaView>
   );
 }

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import {
   View,
   Text,
-  ScrollView,
+  FlatList,
   TouchableOpacity,
   TextInput,
   StyleSheet,
@@ -13,173 +13,206 @@ import { exerciseCategories } from "../../data/exercises/categories";
 import { muscleGroups } from "../../data/exercises/muscleGroups";
 import { useTheme } from "../../contexts/ThemeContext";
 
+// Move static data outside component - computed once, not on every render
+const ALL_EXERCISES = Object.values(exerciseLibrary);
+
+// Helper function to normalize category data structure
+const normalizeCategories = (category) =>
+  Array.isArray(category) ? category : [category];
+
 export default function LibraryTab() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const { theme } = useTheme();
 
-  const allExercises = Object.values(exerciseLibrary);
+  // Memoize filtered results - only recompute when dependencies change
+  const filteredExercises = useMemo(() => {
+    return ALL_EXERCISES.filter((exercise) => {
+      const searchLower = searchQuery.toLowerCase();
+      const matchesSearch =
+        !searchQuery ||
+        exercise.name.toLowerCase().includes(searchLower) ||
+        exercise.description.toLowerCase().includes(searchLower);
 
-  const filteredExercises = allExercises.filter((exercise) => {
-    const matchesSearch =
-      searchQuery === "" ||
-      exercise.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      exercise.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "all" ||
+        normalizeCategories(exercise.category).includes(selectedCategory);
 
-    const matchesCategory =
-      selectedCategory === "all" ||
-      (Array.isArray(exercise.category)
-        ? exercise.category.includes(selectedCategory)
-        : exercise.category === selectedCategory);
+      return matchesSearch && matchesCategory;
+    }).sort((a, b) => a.name.localeCompare(b.name));
+  }, [searchQuery, selectedCategory]);
 
-    return matchesSearch && matchesCategory;
-  });
+  // Memoize dynamic styles to prevent recreation on every render
+  const dynamicStyles = useMemo(
+    () => ({
+      container: { backgroundColor: theme.background },
+      searchInput: { backgroundColor: theme.cardBackground, color: theme.text },
+      card: { backgroundColor: theme.cardBackground },
+      primaryText: { color: theme.text },
+      secondaryText: { color: theme.textSecondary },
+      filterChipActive: { backgroundColor: theme.primary || "#007AFF" },
+      primaryColor: { color: theme.primary || "#007AFF" },
+    }),
+    [theme],
+  );
+
+  // Memoize category data (includes "All" option)
+  const categoryData = useMemo(
+    () => [
+      { id: "all", name: "All", icon: "" },
+      ...Object.values(exerciseCategories),
+    ],
+    [],
+  );
+
+  // Memoized render function for exercise cards
+  const renderExerciseCard = useCallback(
+    ({ item: exercise }) => (
+      <TouchableOpacity
+        style={[styles.exerciseCard, dynamicStyles.card]}
+        onPress={() => router.push(`/exercises/${exercise.id}`)}
+        accessibilityRole="button"
+        accessibilityLabel={`${exercise.name}, ${exercise.difficulty} difficulty`}
+        accessibilityHint="Tap to view exercise details"
+      >
+        <View style={styles.exerciseHeader}>
+          <Text style={[styles.exerciseName, dynamicStyles.primaryText]}>
+            {exercise.name}
+          </Text>
+          <Text
+            style={[styles.exerciseDifficulty, dynamicStyles.secondaryText]}
+          >
+            {exercise.difficulty}
+          </Text>
+        </View>
+        <Text
+          style={[styles.exerciseDescription, dynamicStyles.secondaryText]}
+          numberOfLines={2}
+        >
+          {exercise.description}
+        </Text>
+        <View style={styles.categoryContainer}>
+          {normalizeCategories(exercise.category).map((cat, idx, arr) => (
+            <Text
+              key={cat}
+              style={[styles.exerciseCategory, dynamicStyles.primaryColor]}
+            >
+              {exerciseCategories[cat]?.icon} {exerciseCategories[cat]?.name}
+              {idx < arr.length - 1 ? " • " : ""}
+            </Text>
+          ))}
+        </View>
+        {exercise.equipment && (
+          <Text style={[styles.exerciseEquipment, dynamicStyles.secondaryText]}>
+            Equipment:{" "}
+            {Array.isArray(exercise.equipment)
+              ? exercise.equipment.join(", ")
+              : exercise.equipment}
+          </Text>
+        )}
+        {exercise.muscleGroups?.length > 0 && (
+          <View style={styles.muscleGroupsContainer}>
+            {exercise.muscleGroups.map((mg) => (
+              <View key={mg} style={styles.muscleTag}>
+                <Text style={styles.muscleTagText}>
+                  {muscleGroups[mg]?.name || mg}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
+      </TouchableOpacity>
+    ),
+    [dynamicStyles],
+  );
+
+  // Memoized render function for category filter chips
+  const renderCategoryChip = useCallback(
+    ({ item: category }) => {
+      const isSelected = selectedCategory === category.id;
+      return (
+        <TouchableOpacity
+          style={[
+            styles.filterChip,
+            dynamicStyles.card,
+            isSelected && dynamicStyles.filterChipActive,
+          ]}
+          onPress={() => setSelectedCategory(category.id)}
+          accessibilityRole="button"
+          accessibilityState={{ selected: isSelected }}
+          accessibilityLabel={`Filter by ${category.name}`}
+        >
+          <Text
+            style={[
+              styles.filterChipText,
+              dynamicStyles.primaryText,
+              isSelected && styles.filterChipTextActive,
+            ]}
+          >
+            {category.icon} {category.name}
+          </Text>
+        </TouchableOpacity>
+      );
+    },
+    [selectedCategory, dynamicStyles],
+  );
+
+  // Header component for the list - only shows results count
+  const ListHeaderComponent = useCallback(
+    () => (
+      <Text style={[styles.resultsCount, dynamicStyles.secondaryText]}>
+        {filteredExercises.length} exercise
+        {filteredExercises.length !== 1 ? "s" : ""}
+      </Text>
+    ),
+    [filteredExercises.length, dynamicStyles.secondaryText],
+  );
 
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: theme.background }]}
-    >
-      {/* Search Bar */}
+    <View style={[styles.container, dynamicStyles.container]}>
+      {/* Search Bar - outside FlatList to prevent keyboard dismissal */}
       <View style={styles.searchContainer}>
         <TextInput
-          style={[
-            styles.searchInput,
-            { backgroundColor: theme.cardBackground, color: theme.text },
-          ]}
+          style={[styles.searchInput, dynamicStyles.searchInput]}
           placeholder="Search exercises..."
           placeholderTextColor={theme.textSecondary}
           value={searchQuery}
           onChangeText={setSearchQuery}
+          accessibilityLabel="Search exercises"
+          accessibilityHint="Type to filter exercises by name or description"
         />
       </View>
 
-      {/* Category Filter */}
+      {/* Category Filter - outside FlatList */}
       <View style={styles.filterSection}>
-        <Text style={[styles.filterTitle, { color: theme.textSecondary }]}>
+        <Text style={[styles.filterTitle, dynamicStyles.secondaryText]}>
           Category
         </Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <TouchableOpacity
-            style={[
-              styles.filterChip,
-              { backgroundColor: theme.cardBackground },
-              selectedCategory === "all" && styles.filterChipActive,
-            ]}
-            onPress={() => setSelectedCategory("all")}
-          >
-            <Text
-              style={[
-                styles.filterChipText,
-                { color: theme.text },
-                selectedCategory === "all" && styles.filterChipTextActive,
-              ]}
-            >
-              All
-            </Text>
-          </TouchableOpacity>
-          {Object.values(exerciseCategories).map((category) => (
-            <TouchableOpacity
-              key={category.id}
-              style={[
-                styles.filterChip,
-                { backgroundColor: theme.cardBackground },
-                selectedCategory === category.id && styles.filterChipActive,
-              ]}
-              onPress={() => setSelectedCategory(category.id)}
-            >
-              <Text
-                style={[
-                  styles.filterChipText,
-                  { color: theme.text },
-                  selectedCategory === category.id &&
-                    styles.filterChipTextActive,
-                ]}
-              >
-                {category.icon} {category.name}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={categoryData}
+          renderItem={renderCategoryChip}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.filterList}
+        />
       </View>
 
-      {/* Results Count */}
-      <Text style={[styles.resultsCount, { color: theme.textSecondary }]}>
-        {filteredExercises.length} exercise
-        {filteredExercises.length !== 1 ? "s" : ""}
-      </Text>
-
-      {/* Exercise List */}
-      <View style={styles.exerciseList}>
-        {filteredExercises.map((exercise) => (
-          <TouchableOpacity
-            key={exercise.id}
-            style={[
-              styles.exerciseCard,
-              { backgroundColor: theme.cardBackground },
-            ]}
-            onPress={() => router.push(`/exercises/${exercise.id}`)}
-          >
-            <View style={styles.exerciseHeader}>
-              <Text style={[styles.exerciseName, { color: theme.text }]}>
-                {exercise.name}
-              </Text>
-              <Text
-                style={[
-                  styles.exerciseDifficulty,
-                  { color: theme.textSecondary },
-                ]}
-              >
-                {exercise.difficulty}
-              </Text>
-            </View>
-            <Text
-              style={[
-                styles.exerciseDescription,
-                { color: theme.textSecondary },
-              ]}
-              numberOfLines={2}
-            >
-              {exercise.description}
-            </Text>
-            <View style={styles.exerciseMeta}>
-              <View style={styles.categoryContainer}>
-                {(Array.isArray(exercise.category)
-                  ? exercise.category
-                  : [exercise.category]
-                ).map((cat, idx, arr) => (
-                  <Text key={idx} style={styles.exerciseCategory}>
-                    {exerciseCategories[cat]?.icon}{" "}
-                    {exerciseCategories[cat]?.name}
-                    {idx < arr.length - 1 ? " • " : ""}
-                  </Text>
-                ))}
-              </View>
-              {exercise.equipment && (
-                <Text
-                  style={[
-                    styles.exerciseEquipment,
-                    { color: theme.textSecondary },
-                  ]}
-                >
-                  🏋️ Equipment
-                </Text>
-              )}
-            </View>
-            {exercise.muscleGroups && exercise.muscleGroups.length > 0 && (
-              <View style={styles.muscleGroupsContainer}>
-                {exercise.muscleGroups.map((mg, idx) => (
-                  <View key={idx} style={styles.muscleTag}>
-                    <Text style={styles.muscleTagText}>
-                      {muscleGroups[mg]?.name || mg}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            )}
-          </TouchableOpacity>
-        ))}
-      </View>
-    </ScrollView>
+      {/* Virtualized FlatList for optimal performance with large lists */}
+      <FlatList
+        data={filteredExercises}
+        renderItem={renderExerciseCard}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={ListHeaderComponent}
+        contentContainerStyle={styles.exerciseList}
+        // Performance optimizations
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={10}
+        updateCellsBatchingPeriod={50}
+        initialNumToRender={10}
+        windowSize={10}
+      />
+    </View>
   );
 }
 
@@ -189,7 +222,7 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     padding: 16,
-    paddingTop: 8,
+    paddingBottom: 8,
   },
   searchInput: {
     borderRadius: 10,
@@ -197,13 +230,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   filterSection: {
-    marginBottom: 16,
-    paddingHorizontal: 16,
+    marginBottom: 8,
+    paddingLeft: 16,
   },
   filterTitle: {
     fontSize: 14,
     fontWeight: "600",
     marginBottom: 8,
+  },
+  filterList: {
+    paddingRight: 16,
   },
   filterChip: {
     paddingHorizontal: 16,
@@ -211,14 +247,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginRight: 8,
   },
-  filterChipActive: {
-    backgroundColor: "#007AFF",
-  },
   filterChipText: {
     fontSize: 14,
   },
   filterChipTextActive: {
     color: "#fff",
+    fontWeight: "600",
   },
   resultsCount: {
     paddingHorizontal: 16,
@@ -226,7 +260,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   exerciseList: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   exerciseCard: {
     borderRadius: 12,
@@ -252,22 +287,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 12,
   },
-  exerciseMeta: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-  },
   categoryContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    flex: 1,
+    marginBottom: 8,
   },
   exerciseCategory: {
-    fontSize: 12,
     color: "#007AFF",
   },
   exerciseEquipment: {
-    fontSize: 12,
+    fontSize: 13,
+    marginTop: 3,
+    marginBottom: 8,
+    fontWeight: 600,
   },
   muscleGroupsContainer: {
     flexDirection: "row",
