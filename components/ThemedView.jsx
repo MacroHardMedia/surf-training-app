@@ -4,7 +4,7 @@ import { useTheme } from "../contexts/ThemeContext";
 const ThemedView = ({ style, ...props }) => {
   const { theme } = useTheme();
   return (
-    <View style={[{ backgroundColor: theme.background }, style]} {...props} />
+    <View style={[{ backgroundColor: theme.colors.background }, style]} {...props} />
   );
 };
 

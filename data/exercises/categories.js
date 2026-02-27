@@ -32,8 +32,8 @@ export const exerciseCategories = {
   shoulder: {
     id: "shoulder",
     name: "Shoulder",
-    icon: "💪", // or whatever icon you prefer
-    color: "#FF6B6B", // optional color
+    description: "Shoulder strengthening and mobility exercises",
+    icon: "💪",
   },
   cardio: {
     id: "cardio",

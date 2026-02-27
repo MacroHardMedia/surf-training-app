@@ -45,13 +45,21 @@ export default function LibraryTab() {
   // Memoize dynamic styles to prevent recreation on every render
   const dynamicStyles = useMemo(
     () => ({
-      container: { backgroundColor: theme.background },
-      searchInput: { backgroundColor: theme.cardBackground, color: theme.text },
-      card: { backgroundColor: theme.cardBackground },
-      primaryText: { color: theme.text },
-      secondaryText: { color: theme.textSecondary },
-      filterChipActive: { backgroundColor: theme.primary || "#007AFF" },
-      primaryColor: { color: theme.primary || "#007AFF" },
+      container: { backgroundColor: theme.colors.background },
+      searchInput: {
+        backgroundColor: theme.colors.card,
+        color: theme.colors.text,
+      },
+      card: { backgroundColor: theme.colors.card },
+      primaryText: { color: theme.colors.text },
+      secondaryText: { color: theme.colors.textSecondary },
+      filterChipActive: { backgroundColor: theme.colors.primary },
+      primaryColor: { color: theme.colors.primary },
+      muscleTag: {
+        backgroundColor: theme.colors.infoLight,
+        borderColor: theme.colors.info,
+      },
+      muscleTagText: { color: theme.colors.infoText },
     }),
     [theme],
   );
@@ -113,8 +121,13 @@ export default function LibraryTab() {
         {exercise.muscleGroups?.length > 0 && (
           <View style={styles.muscleGroupsContainer}>
             {exercise.muscleGroups.map((mg) => (
-              <View key={mg} style={styles.muscleTag}>
-                <Text style={styles.muscleTagText}>
+              <View
+                key={mg}
+                style={[styles.muscleTag, dynamicStyles.muscleTag]}
+              >
+                <Text
+                  style={[styles.muscleTagText, dynamicStyles.muscleTagText]}
+                >
                   {muscleGroups[mg]?.name || mg}
                 </Text>
               </View>
@@ -175,7 +188,7 @@ export default function LibraryTab() {
         <TextInput
           style={[styles.searchInput, dynamicStyles.searchInput]}
           placeholder="Search exercises..."
-          placeholderTextColor={theme.textSecondary}
+          placeholderTextColor={theme.colors.inputPlaceholder}
           value={searchQuery}
           onChangeText={setSearchQuery}
           accessibilityLabel="Search exercises"
@@ -292,9 +305,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     marginBottom: 8,
   },
-  exerciseCategory: {
-    color: "#007AFF",
-  },
+  exerciseCategory: {},
   exerciseEquipment: {
     fontSize: 13,
     marginTop: 3,
@@ -308,16 +319,13 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   muscleTag: {
-    backgroundColor: "#e8f4ff",
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#b3d9ff",
   },
   muscleTagText: {
     fontSize: 11,
-    color: "#0066cc",
     fontWeight: "500",
     textTransform: "capitalize",
   },

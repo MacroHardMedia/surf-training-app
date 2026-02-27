@@ -29,7 +29,7 @@ const MonthCard = ({
     <Text style={styles(theme).monthTitle}>{title}</Text>
     <Text style={styles(theme).monthDescription}>{description}</Text>
     <View style={styles(theme).cardFooter}>
-      <Ionicons name="arrow-forward" size={20} color={theme.primary} />
+      <Ionicons name="arrow-forward" size={20} color={theme.colors.primary} />
     </View>
   </TouchableOpacity>
 );
@@ -75,7 +75,7 @@ export default function SurfFitness3Month() {
             onPress={() => router.back()}
             style={styles(theme).backButton}
           >
-            <Ionicons name="arrow-back" size={24} color={theme.text} />
+            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
           </TouchableOpacity>
           <Text style={styles(theme).headerTitle}>3-Month Surf Fitness</Text>
         </View>
@@ -122,14 +122,14 @@ const styles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: "#fff",
+      backgroundColor: theme.colors.background,
     },
     header: {
       flexDirection: "row",
       alignItems: "center",
       padding: 16,
       borderBottomWidth: 1,
-      borderBottomColor: "#eee",
+      borderBottomColor: theme.colors.border,
     },
     backButton: {
       marginRight: 16,
@@ -138,7 +138,7 @@ const styles = (theme) =>
       fontSize: 23,
       fontWeight: "bold",
       flex: 1,
-      color: "#2a2a2aff",
+      color: theme.colors.text,
       textAlign: "center",
     },
     content: {
@@ -146,41 +146,41 @@ const styles = (theme) =>
     },
     programInfo: {
       padding: 16,
-      backgroundColor: "#f8f9fa",
+      backgroundColor: theme.colors.backgroundSecondary,
     },
     programDescription: {
       fontSize: 16,
       lineHeight: 24,
-      color: "#333",
+      color: theme.colors.text,
       marginBottom: 16,
     },
     overviewSection: {
-      backgroundColor: "#fff",
+      backgroundColor: theme.colors.card,
       padding: 16,
       borderRadius: 8,
       borderLeftWidth: 4,
-      borderLeftColor: "#007AFF",
+      borderLeftColor: theme.colors.primary,
     },
     overviewTitle: {
       fontSize: 16,
       fontWeight: "bold",
-      color: "#007AFF",
+      color: theme.colors.primary,
       marginBottom: 8,
     },
     overviewText: {
       fontSize: 14,
       lineHeight: 20,
-      color: "#666",
+      color: theme.colors.textSecondary,
     },
     monthsContainer: {
       padding: 16,
     },
     monthCard: {
-      backgroundColor: "#fff",
+      backgroundColor: theme.colors.card,
       borderRadius: 12,
       padding: 20,
       marginBottom: 16,
-      shadowColor: "#000",
+      shadowColor: theme.colors.shadow,
       shadowOffset: {
         width: 0,
         height: 2,
@@ -189,7 +189,7 @@ const styles = (theme) =>
       shadowRadius: 4,
       elevation: 3,
       borderLeftWidth: 4,
-      borderLeftColor: "#007AFF",
+      borderLeftColor: theme.colors.primary,
     },
     monthHeader: {
       flexDirection: "row",
@@ -200,13 +200,13 @@ const styles = (theme) =>
     monthNumber: {
       fontSize: 18,
       fontWeight: "bold",
-      color: "#007AFF",
+      color: theme.colors.primary,
     },
     difficulty: {
       fontSize: 12,
       fontWeight: "600",
-      color: "#fff",
-      backgroundColor: "#007AFF",
+      color: theme.colors.primaryText,
+      backgroundColor: theme.colors.primary,
       paddingHorizontal: 8,
       paddingVertical: 4,
       borderRadius: 12,
@@ -214,13 +214,13 @@ const styles = (theme) =>
     monthTitle: {
       fontSize: 20,
       fontWeight: "bold",
-      color: "#333",
+      color: theme.colors.text,
       marginBottom: 8,
     },
     monthDescription: {
       fontSize: 14,
       lineHeight: 20,
-      color: theme.textSecondary,
+      color: theme.colors.textSecondary,
       marginBottom: 12,
     },
     cardFooter: {

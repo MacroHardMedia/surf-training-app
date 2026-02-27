@@ -100,6 +100,14 @@ const lightTheme = {
 
     // Shadows
     shadow: "#000000",
+
+    // Program/Category Colors
+    warmOrange: "#FFB347", // Warm, energetic, sunrise
+    skyBlue: "#87CEEB", // Cool, calm, beginner-friendly
+    coral: "#FF6B6B", // Energetic, action-oriented
+    lightGreen: "#90EE90", // Nature, growth, balance
+    gold: "#FFD700", // Premium, technique, mastery
+    purple: "#A855F7", // Community, connection
   },
 
   // ==================== FONTS ====================

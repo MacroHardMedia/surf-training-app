@@ -5,24 +5,31 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../contexts/ThemeContext";
 
 const Settings = () => {
-  const { theme, isDarkMode, setIsDarkMode } = useTheme();
+  const { theme, colorScheme, toggleTheme } = useTheme();
+  const isDarkMode = colorScheme === "dark";
 
   return (
     <SafeAreaView
-      style={[styles.container, { backgroundColor: theme.background }]}
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <ScrollView>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={[styles.title, { color: theme.text }]}>Settings</Text>
-          <Text style={[styles.subtitle, { color: theme.textSecondary }]}>
+          <Text style={[styles.title, { color: theme.colors.text }]}>
+            Settings
+          </Text>
+          <Text
+            style={[styles.subtitle, { color: theme.colors.textSecondary }]}
+          >
             Customize your experience
           </Text>
         </View>
 
         {/* Appearance Section */}
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: theme.textSecondary }]}>
+          <Text
+            style={[styles.sectionTitle, { color: theme.colors.textSecondary }]}
+          >
             APPEARANCE
           </Text>
 
@@ -30,8 +37,8 @@ const Settings = () => {
             style={[
               styles.settingCard,
               {
-                backgroundColor: theme.cardBackground,
-                borderColor: theme.border,
+                backgroundColor: theme.colors.card,
+                borderColor: theme.colors.border,
               },
             ]}
           >
@@ -39,23 +46,29 @@ const Settings = () => {
               <View
                 style={[
                   styles.iconContainer,
-                  { backgroundColor: isDarkMode ? "#2c2c2e" : "#F2F2F7" },
+                  {
+                    backgroundColor: isDarkMode
+                      ? theme.colors.cardSecondary
+                      : theme.colors.backgroundSecondary,
+                  },
                 ]}
               >
                 <Ionicons
                   name={isDarkMode ? "moon" : "sunny"}
                   size={22}
-                  color={theme.primary}
+                  color={theme.colors.primary}
                 />
               </View>
               <View style={styles.leftContent}>
-                <Text style={[styles.settingLabel, { color: theme.text }]}>
+                <Text
+                  style={[styles.settingLabel, { color: theme.colors.text }]}
+                >
                   Dark Mode
                 </Text>
                 <Text
                   style={[
                     styles.settingDescription,
-                    { color: theme.textSecondary },
+                    { color: theme.colors.textSecondary },
                   ]}
                 >
                   {isDarkMode ? "Dark theme enabled" : "Light theme enabled"}
@@ -63,17 +76,20 @@ const Settings = () => {
               </View>
               <Switch
                 value={isDarkMode}
-                onValueChange={setIsDarkMode}
-                trackColor={{ false: "#D1D1D6", true: theme.success }}
+                onValueChange={toggleTheme}
+                trackColor={{
+                  false: theme.colors.borderStrong,
+                  true: theme.colors.success,
+                }}
                 thumbColor="#fff"
-                ios_backgroundColor="#D1D1D6"
+                ios_backgroundColor={theme.colors.borderStrong}
               />
             </View>
           </View>
         </View>
 
         {/* Footer */}
-        <Text style={[styles.footer, { color: theme.textTertiary }]}>
+        <Text style={[styles.footer, { color: theme.colors.textTertiary }]}>
           Made with 🤙 for surfers
         </Text>
       </ScrollView>

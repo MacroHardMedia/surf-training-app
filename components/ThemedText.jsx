@@ -4,7 +4,7 @@ import { useTheme } from "../contexts/ThemeContext";
 const ThemedText = ({ style, title = false, ...props }) => {
   const { theme } = useTheme();
 
-  const textColor = title ? theme.text : theme.text;
+  const textColor = title ? theme.colors.text : theme.colors.textSecondary;
 
   return <Text style={[{ color: textColor }, style]} {...props} />;
 };

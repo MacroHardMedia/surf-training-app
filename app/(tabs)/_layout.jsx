@@ -1,73 +1,56 @@
+import { useCallback } from "react";
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../contexts/ThemeContext";
 
+// Defined outside component — static data, no reason to recreate on every render.
+
+const TAB_ICONS = {
+  index: ["home", "home-outline"],
+  library: ["library", "library-outline"],
+  settings: ["settings", "settings-outline"],
+  profile: ["person", "person-outline"],
+};
+
+const FALLBACK_ICONS = ["ellipsis-horizontal", "ellipsis-horizontal-outline"];
+
+function getTabIcons(routeName) {
+  return TAB_ICONS[routeName] ?? FALLBACK_ICONS;
+}
+
 export default function TabLayout() {
   const { theme } = useTheme();
 
-  return (
-    <Tabs
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
+  const screenOptions = useCallback(
+    ({ route }) => {
+      const [activeIcon, inactiveIcon] = getTabIcons(route.name);
 
-          if (route.name === "index") {
-            iconName = "home";
-          } else if (route.name === "progress") {
-            iconName = "calendar";
-          } else if (route.name === "apnea") {
-            iconName = "timer";
-          } else if (route.name === "techniques") {
-            iconName = "book";
-          } else if (route.name === "more") {
-            iconName = "ellipsis-horizontal";
-          }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: theme.primary,
-        tabBarInactiveTintColor: theme.textTertiary,
+      return {
+        tabBarIcon: ({ color, focused, size }) => (
+          <Ionicons
+            name={focused ? activeIcon : inactiveIcon}
+            size={size}
+            color={color}
+          />
+        ),
+        tabBarActiveTintColor: theme.colors.text,
+        tabBarInactiveTintColor: theme.colors.textTertiary,
         tabBarStyle: {
-          backgroundColor: theme.cardBackground,
-          borderTopColor: theme.border,
+          backgroundColor: theme.colors.background,
+          borderTopColor: theme.colors.border,
         },
         headerShown: false,
-      })}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          tabBarLabel: "Home",
-        }}
-      />
-      <Tabs.Screen name="apnea" options={{ title: "Time Your Breath" }} />
+      };
+    },
+    [theme],
+  );
 
-      <Tabs.Screen name="progress" options={{ title: "Progress" }} />
-
-      <Tabs.Screen
-        name="library"
-        options={{
-          title: "Library",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "library" : "library-outline"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
-          ),
-        }}
-      />
+  return (
+    <Tabs screenOptions={screenOptions}>
+      <Tabs.Screen name="index" options={{ title: "Home" }} />
+      <Tabs.Screen name="library" options={{ title: "Library" }} />
+      <Tabs.Screen name="profile" options={{ title: "Profile" }} />
+      <Tabs.Screen name="settings" options={{ title: "Settings" }} />
     </Tabs>
   );
 }

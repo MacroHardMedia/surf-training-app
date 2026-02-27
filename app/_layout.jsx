@@ -8,14 +8,14 @@ function RootNavigator() {
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: theme.background },
-        headerTintColor: theme.text,
+        headerStyle: { backgroundColor: theme.colors.primaryLight },
+        headerTintColor: theme.colors.text,
         headerTitle: () => (
           <Text
             style={{
               fontSize: 20,
               fontWeight: "bold",
-              color: theme.text,
+              color: theme.colors.text,
             }}
           >
             Total Surf App

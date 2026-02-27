@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const Apnea = () => {
+const Profile = () => {
   return (
     <View>
-      <Text>Apnea</Text>
+      <Text>profile</Text>
     </View>
   );
 };
 
-export default Apnea;
+export default Profile;
