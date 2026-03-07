@@ -12,6 +12,10 @@ export default function OnboardingLayout() {
         name="surf-profile"
         options={{ headerShown: false, headerBackTitle: "Back", title: "" }}
       />
+      <Stack.Screen
+        name="create-account"
+        options={{ headerShown: false, headerBackTitle: "Back", title: "" }}
+      />
     </Stack>
   );
 }

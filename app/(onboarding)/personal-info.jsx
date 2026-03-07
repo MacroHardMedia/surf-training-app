@@ -71,12 +71,22 @@ export default function PersonalInfo() {
   // Convert ft/in inputs to total inches for BMI
   const heightForBMI =
     form.heightUnit === "ft"
-      ? String((parseFloat(form.heightFt) || 0) * 12 + (parseFloat(form.heightIn) || 0))
+      ? String(
+          (parseFloat(form.heightFt) || 0) * 12 +
+            (parseFloat(form.heightIn) || 0),
+        )
       : form.height;
 
   const bmi = useMemo(
     () => calcBMI(form.weight, form.weightUnit, heightForBMI, form.heightUnit),
-    [form.weight, form.weightUnit, form.height, form.heightUnit],
+    [
+      form.weight,
+      form.weightUnit,
+      form.heightFt,
+      form.heightIn,
+      form.height,
+      form.heightUnit,
+    ],
   );
   const category = bmiCategory(bmi);
 
