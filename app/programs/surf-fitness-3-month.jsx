@@ -8,6 +8,7 @@ import {
 import { Stack, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ROUTES } from "../../constants/routes";
 import { useTheme } from "../../contexts/ThemeContext";
 import { surfMonth1 } from "../../data/routines/surf-fitness-month1";
 import { surfMonth2 } from "../../data/routines/surf-fitness-month2";
@@ -63,7 +64,7 @@ export default function SurfFitness3Month() {
   ];
 
   const handleMonthPress = (month) => {
-    router.push(`/programs/${encodeURIComponent(month.id)}`);
+    router.push(ROUTES.program(month.id));
   };
 
   return (

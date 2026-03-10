@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../contexts/ThemeContext";
 import { ROUTES } from "../../constants/routes";
+import { useOnboarding } from "../../contexts/onBoardingContext";
 import PrimaryButton from "../../components/PrimaryButton";
 import SecondaryButton from "../../components/SecondaryButton";
 
@@ -54,6 +55,7 @@ export default function PersonalInfo() {
   const { theme } = useTheme();
   const { colors, fonts, spacing, radius } = theme;
   const insets = useSafeAreaInsets();
+  const { updateSelection } = useOnboarding();
 
   const [form, setForm] = useState({
     age: "",
@@ -441,7 +443,18 @@ export default function PersonalInfo() {
             />
             <PrimaryButton
               label="Next →"
-              onPress={() => router.push(ROUTES.ONBOARDING_SURF_PROFILE)}
+              onPress={() => {
+                updateSelection("personalInfo", {
+                  age: form.age,
+                  sex: form.sex,
+                  weight: `${form.weight} ${form.weightUnit}`,
+                  height:
+                    form.heightUnit === "ft"
+                      ? `${form.heightFt}'${form.heightIn}"`
+                      : `${form.height} cm`,
+                });
+                router.push(ROUTES.ONBOARDING_SURF_PROFILE);
+              }}
               disabled={!isValid}
               style={{ flex: 2 }}
             />

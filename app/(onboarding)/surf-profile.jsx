@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useTheme } from "../../contexts/ThemeContext";
 import { ROUTES } from "../../constants/routes";
+import { useOnboarding } from "../../contexts/onBoardingContext";
 import PrimaryButton from "../../components/PrimaryButton";
 import SecondaryButton from "../../components/SecondaryButton";
 
@@ -38,6 +39,7 @@ export default function SurfProfile() {
   const { theme } = useTheme();
   const { colors, fonts, spacing, radius } = theme;
   const insets = useSafeAreaInsets();
+  const { updateSelection } = useOnboarding();
 
   const [form, setForm] = useState({
     surfLevel: "",
@@ -295,7 +297,17 @@ export default function SurfProfile() {
             />
             <PrimaryButton
               label="Next →"
-              onPress={() => router.push(ROUTES.ONBOARDING_SURF_PROFILE_2)}
+              onPress={() => {
+                updateSelection("surfProfile", {
+                  surfLevel: form.surfLevel,
+                  surfFrequency: form.surfFrequency,
+                  boardType: form.boardType,
+                });
+                updateSelection("goals", {
+                  primaryGoal: form.goal,
+                });
+                router.push(ROUTES.ONBOARDING_SURF_PROFILE_2);
+              }}
               disabled={!isValid}
               style={{ flex: 2 }}
             />

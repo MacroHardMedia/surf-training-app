@@ -19,7 +19,6 @@ const Home = () => {
       }),
     [theme],
   );
-
   return (
     <ThemedView style={styles.container}>
       <ScrollView>

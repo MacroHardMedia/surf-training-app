@@ -12,6 +12,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useTheme } from "../../contexts/ThemeContext";
 import { ROUTES } from "../../constants/routes";
+import { useOnboarding } from "../../contexts/onBoardingContext";
 import PrimaryButton from "../../components/PrimaryButton";
 import SecondaryButton from "../../components/SecondaryButton";
 
@@ -38,6 +39,7 @@ export default function SurfProfile2() {
   const { theme } = useTheme();
   const { colors, fonts, spacing, radius } = theme;
   const insets = useSafeAreaInsets();
+  const { updateSelection } = useOnboarding();
 
   const [form, setForm] = useState({
     fitnessLevel: "",
@@ -197,7 +199,7 @@ export default function SurfProfile2() {
         contentContainerStyle={s.scroll}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={s.title}>Fitness & Training</Text>
+        <Text style={s.title}>Surf Fitness & Training</Text>
         <Text style={s.subtitle}>
           Help us understand your body and availability.
         </Text>
@@ -290,7 +292,16 @@ export default function SurfProfile2() {
             />
             <PrimaryButton
               label="Next →"
-              onPress={() => router.push(ROUTES.ONBOARDING_AVAILABILITY)}
+              onPress={() => {
+                updateSelection("surfProfile", {
+                  fitnessLevel: form.fitnessLevel,
+                  injuries: form.injuries,
+                });
+                updateSelection("goals", {
+                  trainingDays: form.trainingDays,
+                });
+                router.push(ROUTES.ONBOARDING_SUMMARY);
+              }}
               disabled={!isValid}
               style={{ flex: 2 }}
             />

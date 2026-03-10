@@ -172,6 +172,8 @@ const lightTheme = {
     "3xl": 40,
     "4xl": 48,
     "5xl": 64,
+    // Screen-level layout tokens
+    screenPadding: 24, // horizontal page padding
   },
 
   // ==================== BORDER RADIUS ====================

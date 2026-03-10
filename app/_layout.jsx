@@ -23,14 +23,12 @@ function RootNavigator() {
         ),
       }}
     >
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
       <Stack.Screen name="(tabs)" options={{ headerShown: true }} />
       <Stack.Screen
         name="programs/[program]"
-        options={{
-          headerShown: false,
-          headerTitle: "",
-          headerBackTitleVisible: false,
-        }}
+        options={{ headerShown: false }}
       />
     </Stack>
   );

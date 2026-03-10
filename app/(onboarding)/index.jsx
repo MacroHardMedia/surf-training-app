@@ -47,7 +47,7 @@ export default function OnboardingWelcome() {
       <OnboardingFooter
         step={`${CURRENT_STEP} of ${TOTAL_STEPS}`}
         cta="Next →"
-        onPress={() => router.push(ROUTES.ONBOARDING_CREATE_ACCOUNT)}
+        onPress={() => router.push(ROUTES.ONBOARDING_PERSONAL_INFO)}
       />
     </View>
   );

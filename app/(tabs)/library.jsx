@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { router } from "expo-router";
+import { ROUTES } from "../../constants/routes";
 import { exerciseLibrary } from "../../data/exercises/exerciseLibrary";
 import { exerciseCategories } from "../../data/exercises/categories";
 import { muscleGroups } from "../../data/exercises/muscleGroups";
@@ -78,7 +79,7 @@ export default function LibraryTab() {
     ({ item: exercise }) => (
       <TouchableOpacity
         style={[styles.exerciseCard, dynamicStyles.card]}
-        onPress={() => router.push(`/exercises/${exercise.id}`)}
+        onPress={() => router.push(ROUTES.exercise(exercise.id))}
         accessibilityRole="button"
         accessibilityLabel={`${exercise.name}, ${exercise.difficulty} difficulty`}
         accessibilityHint="Tap to view exercise details"
