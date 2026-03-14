@@ -214,7 +214,7 @@ export default function Summary() {
           title="Personal Info"
           onEdit={() => router.push(ROUTES.ONBOARDING_PERSONAL_INFO)}
         >
-          <InfoRow label="Age" value={personalInfo.age} />
+          <InfoRow label="Date of Birth" value={personalInfo.dob} />
           <InfoRow label="Sex" value={personalInfo.sex} />
           <InfoRow label="Weight" value={personalInfo.weight} />
           <InfoRow label="Height" value={personalInfo.height} />

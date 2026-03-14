@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useMemo } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
@@ -49,6 +49,28 @@ export default function OnboardingWelcome() {
         cta="Next →"
         onPress={() => router.push(ROUTES.ONBOARDING_PERSONAL_INFO)}
       />
+
+      <View style={styles.signInRow}>
+        <Text
+          style={{
+            color: theme.colors.textSecondary,
+            fontSize: theme.fonts.size.md,
+          }}
+        >
+          Already have an account?{" "}
+        </Text>
+        <TouchableOpacity onPress={() => router.push(ROUTES.SIGN_IN)}>
+          <Text
+            style={{
+              color: theme.colors.primary,
+              fontSize: theme.fonts.size.md,
+              fontWeight: theme.fonts.weight.semiBold,
+            }}
+          >
+            Sign in
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -57,5 +79,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
+  },
+  signInRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 25,
   },
 });

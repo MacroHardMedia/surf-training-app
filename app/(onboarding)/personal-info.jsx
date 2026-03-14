@@ -58,7 +58,7 @@ export default function PersonalInfo() {
   const { updateSelection } = useOnboarding();
 
   const [form, setForm] = useState({
-    age: "",
+    dob: { day: "", month: "", year: "" },
     sex: "",
     weight: "",
     weightUnit: "lbs",
@@ -93,7 +93,8 @@ export default function PersonalInfo() {
   const category = bmiCategory(bmi);
 
   const heightValid = form.heightUnit === "ft" ? form.heightFt : form.height;
-  const isValid = form.age && form.sex && form.weight && heightValid;
+  const dobValid = form.dob.day && form.dob.month && form.dob.year.length === 4;
+  const isValid = dobValid && form.sex && form.weight && heightValid;
 
   // ── Styles ────────────────────────────────────────────────────
   const containerStyle = useMemo(
@@ -286,18 +287,39 @@ export default function PersonalInfo() {
           We'll use this to personalise your training.
         </Text>
 
-        {/* Age */}
+        {/* Date of Birth */}
         <View style={s.field}>
-          <Text style={s.label}>Age</Text>
-          <TextInput
-            style={s.input}
-            placeholder="e.g. 28"
-            placeholderTextColor={colors.inputPlaceholder}
-            keyboardType="number-pad"
-            value={form.age}
-            onChangeText={(v) => update("age", v)}
-            maxLength={3}
-          />
+          <Text style={s.label}>Date of Birth</Text>
+          <View style={s.row}>
+            <TextInput
+              style={[s.input, { flex: 1, textAlign: "center" }]}
+              placeholder="DD"
+              placeholderTextColor={colors.inputPlaceholder}
+              keyboardType="number-pad"
+              value={form.dob.day}
+              onChangeText={(v) => update("dob", { ...form.dob, day: v })}
+              maxLength={2}
+            />
+            <TextInput
+              style={[s.input, { flex: 1, textAlign: "center" }]}
+              placeholder="MM"
+              placeholderTextColor={colors.inputPlaceholder}
+              keyboardType="number-pad"
+              value={form.dob.month}
+              onChangeText={(v) => update("dob", { ...form.dob, month: v })}
+              maxLength={2}
+            />
+            <TextInput
+              style={[s.input, { flex: 2, textAlign: "center" }]}
+              placeholder="YYYY"
+              placeholderTextColor={colors.inputPlaceholder}
+              keyboardType="number-pad"
+              value={form.dob.year}
+              onChangeText={(v) => update("dob", { ...form.dob, year: v })}
+              maxLength={4}
+            />
+          </View>
+          <Text style={s.hint}>Day / Month / Year</Text>
         </View>
 
         {/* Sex */}
@@ -445,7 +467,7 @@ export default function PersonalInfo() {
               label="Next →"
               onPress={() => {
                 updateSelection("personalInfo", {
-                  age: form.age,
+                  dob: `${form.dob.day}/${form.dob.month}/${form.dob.year}`,
                   sex: form.sex,
                   weight: `${form.weight} ${form.weightUnit}`,
                   height:

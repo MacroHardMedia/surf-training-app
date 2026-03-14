@@ -1,6 +1,6 @@
 import {
-  View,
   Text,
+  View,
   TextInput,
   TouchableOpacity,
   StyleSheet,
@@ -10,13 +10,22 @@ import {
 } from "react-native";
 import { useState, useMemo } from "react";
 import { useRouter } from "expo-router";
+import { useOnboarding } from "../../contexts/onBoardingContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useTheme } from "../../contexts/ThemeContext";
 import { ROUTES } from "../../constants/routes";
+import {
+  account,
+  databases,
+  DATABASE_ID,
+  PROFILES_COLLECTION_ID,
+} from "../../lib/appwrite";
+import { ID } from "react-native-appwrite";
 import PrimaryButton from "../../components/PrimaryButton";
 
 export default function CreateAccount() {
   const router = useRouter();
+  const { onboardingData } = useOnboarding();
   const { theme } = useTheme();
   const { colors, fonts, spacing, radius } = theme;
   const insets = useSafeAreaInsets();
@@ -29,17 +38,17 @@ export default function CreateAccount() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const update = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
 
+  // PASSWORD PARAMETERS
   const passwordsMatch =
     form.password.length > 0 && form.password === form.confirmPassword;
-
-  const passwordTooShort = form.password.length > 0 && form.password.length < 8;
-
-  const hasNumber = /[0-9]/.test(form.password);
-
   const passwordValid = form.password.length >= 8 && hasNumber;
+  const passwordTooShort = form.password.length > 0 && form.password.length < 8;
+  const hasNumber = /[0-9]/.test(form.password);
 
   const isValid =
     form.username.trim().length > 0 &&
@@ -119,6 +128,15 @@ export default function CreateAccount() {
           fontSize: fonts.size.xs,
           color: "#EF4444",
           marginTop: spacing.xs,
+        },
+        apiError: {
+          fontSize: fonts.size.sm,
+          color: "#EF4444",
+          textAlign: "center",
+          marginBottom: spacing.base,
+          backgroundColor: "#FEE2E2",
+          borderRadius: radius.md,
+          padding: spacing.sm,
         },
         footer: { marginTop: spacing["2xl"] },
         dividerRow: {
@@ -271,10 +289,54 @@ export default function CreateAccount() {
 
         {/* CTA */}
         <View style={s.footer}>
+          {error ? <Text style={s.apiError}>{error}</Text> : null}
           <PrimaryButton
-            label="Create Account"
-            onPress={() => router.replace(ROUTES.HOME)}
-            disabled={!isValid}
+            label={loading ? "Creating account…" : "Create Account"}
+            onPress={async () => {
+              setLoading(true);
+              setError("");
+              try {
+                const newAccount = await account.create(
+                  ID.unique(),
+                  form.email.trim(),
+                  form.password,
+                  form.username.trim(),
+                );
+                await account.createEmailPasswordSession(
+                  form.email.trim(),
+                  form.password,
+                );
+                const { personalInfo, surfProfile, goals } = onboardingData;
+                await databases.createDocument(
+                  DATABASE_ID,
+                  PROFILES_COLLECTION_ID,
+                  ID.unique(),
+                  {
+                    userId: newAccount.$id,
+                    username: form.username.trim(),
+                    dob: personalInfo.dob,
+                    sex: personalInfo.sex,
+                    weight: personalInfo.weight,
+                    height: personalInfo.height,
+                    surfLevel: surfProfile.surfLevel,
+                    surfFrequency: surfProfile.surfFrequency,
+                    boardType: surfProfile.boardType,
+                    primaryGoal: goals.primaryGoal,
+                    fitnessLevel: surfProfile.fitnessLevel,
+                    injuries: surfProfile.injuries,
+                    trainingDays: goals.trainingDays,
+                  },
+                );
+                router.replace(ROUTES.HOME);
+              } catch (e) {
+                setError(
+                  e.message ?? "Something went wrong. Please try again.",
+                );
+              } finally {
+                setLoading(false);
+              }
+            }}
+            disabled={!isValid || loading}
           />
 
           {/* Divider */}
