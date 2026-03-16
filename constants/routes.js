@@ -10,7 +10,7 @@ export const ROUTES = {
   ONBOARDING_CREATE_ACCOUNT: "/(onboarding)/create-account",
 
   // Auth
-  SIGN_IN: "/(auth)/sign-in",
+  SIGN_IN: "/(auth)/signin",
 
   // Tabs
   HOME: "/(tabs)",

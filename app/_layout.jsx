@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { Text } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { ThemeProvider, useTheme } from "../contexts/ThemeContext";
-
 function RootNavigator() {
   const { theme } = useTheme();
 
@@ -25,7 +25,11 @@ function RootNavigator() {
     >
       <Stack.Screen name="index" options={{ headerShown: false }} />
       <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: true }} />
+      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="(tabs)"
+        options={{ headerShown: true, headerBackVisible: false }}
+      />
       <Stack.Screen
         name="programs/[program]"
         options={{ headerShown: false }}
@@ -37,6 +41,7 @@ function RootNavigator() {
 export default function RootLayout() {
   return (
     <ThemeProvider>
+      <StatusBar style="auto" />
       <RootNavigator />
     </ThemeProvider>
   );

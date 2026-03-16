@@ -11,7 +11,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { programsData } from "../../data/index";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../contexts/ThemeContext";
-import Spacer from "../../components/Spacer";
 
 // Move helper function outside component for better performance
 const toArray = (v) =>

@@ -1,23 +1,22 @@
 export const beginnerFullBodyWorkout = {
-  title: "Beginner Surf Foundational",
+  id: "beginner-surf-workout",
+  title: "Beginner Surf Workout",
   description:
-    "In this section you will build a solid foundation for more advanced exercieses!",
+    "If you're new to workout start with this block. This block will teach you basic compound lifts.",
   instructions: [
     "Move controlled, prioritize full range of motion and technique.",
-    "Rest 60–90s between compound sets, 30–60s for accessory/core.",
-    "Strength Train 3×/week.",
+    "Access to barbells, dumbbells and bands recommended.",
     "Mobility work everyday.",
-    "Cardio every rest day.",
     "Consistency is key 🔑",
   ],
   structure: {
     split:
-      "Train three sessions per week push/pull/legs with core added to each session, and cardio on between days",
+      "Train 3 to 4 sessions per week. Customize your workouts days to fit your weekly schedule.",
     weekExample: [
       "Mon — Push/Core",
-      "Tue — Rest",
+      "Tue — Active recovery / walk / surf",
       "Wed — Pull/Core",
-      "Thu — Rest",
+      "Thu — Active recovery / walk / surf",
       "Fri — Legs/Core",
       "Sat — Active recovery / walk / surf",
       "Sun — Rest",

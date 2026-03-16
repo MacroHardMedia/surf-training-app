@@ -26,7 +26,7 @@ export const getHomeSections = (theme) => [
           },
           {
             id: "beginner-fullbody",
-            title: "Beginner Fullbody Workout",
+            title: "Beginner Gym Workout",
             color: theme.colors.skyBlue,
 
             backgroundImage: require("../assets/IMG_1488.jpg"),
@@ -47,8 +47,8 @@ export const getHomeSections = (theme) => [
         ],
       },
       {
-        id: "exercise-routines",
-        title: "Exercise Routines",
+        id: "surf-workouts",
+        title: "Surf Workouts",
         description: "This is where you will find different exercises",
         backgroundColor: theme.colors.background,
         programs: [
@@ -61,8 +61,8 @@ export const getHomeSections = (theme) => [
       },
       {
         id: "surf-technique",
-        title: "Surf Technique",
-        description: "Here you will find lessons on techniques",
+        title: "Surf Techniques",
+        description: "Here you will improve and refine your technique",
         backgroundColor: theme.colors.background,
         programs: [
           { title: "Stance", color: theme.colors.gold },
