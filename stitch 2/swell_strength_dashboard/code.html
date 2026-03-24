@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Kinetic Horizon | Surf Training Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-variant": "#192540",
+                "error-container": "#9f0519",
+                "surface-dim": "#060e20",
+                "on-background": "#dee5ff",
+                "on-secondary-fixed": "#283856",
+                "surface-container-low": "#091328",
+                "inverse-primary": "#006a6c",
+                "on-tertiary-fixed": "#320a00",
+                "outline-variant": "#40485d",
+                "on-error": "#490006",
+                "inverse-on-surface": "#4d556b",
+                "tertiary-container": "#fe7e4f",
+                "primary-fixed-dim": "#3de4e7",
+                "on-tertiary": "#5c1a00",
+                "primary-container": "#0cd0d3",
+                "on-surface-variant": "#a3aac4",
+                "inverse-surface": "#faf8ff",
+                "surface-bright": "#1f2b49",
+                "tertiary-fixed": "#ff946e",
+                "on-secondary-container": "#c0d1f6",
+                "surface-container-highest": "#192540",
+                "on-tertiary-fixed-variant": "#6b1f00",
+                "secondary-fixed-dim": "#b9c9ee",
+                "surface-tint": "#52f2f5",
+                "on-primary-fixed": "#004344",
+                "on-error-container": "#ffa8a3",
+                "tertiary-fixed-dim": "#fe7e4f",
+                "on-secondary": "#3b4b6a",
+                "on-surface": "#dee5ff",
+                "secondary-container": "#374765",
+                "on-secondary-fixed-variant": "#445474",
+                "on-primary-container": "#004041",
+                "secondary-fixed": "#c7d7fd",
+                "secondary": "#c7d7fd",
+                "surface-container": "#0f1930",
+                "on-tertiary-container": "#491300",
+                "on-primary": "#005859",
+                "on-primary-fixed-variant": "#006264",
+                "surface-container-high": "#141f38",
+                "background": "#060e20",
+                "tertiary": "#ff946e",
+                "primary-dim": "#3de4e7",
+                "error-dim": "#d7383b",
+                "surface-container-lowest": "#000000",
+                "error": "#ff716c",
+                "tertiary-dim": "#f7794b",
+                "surface": "#060e20",
+                "outline": "#6d758c",
+                "secondary-dim": "#b9c9ee",
+                "primary-fixed": "#52f2f5",
+                "primary": "#52f2f5"
+              },
+              fontFamily: {
+                "headline": ["Lexend"],
+                "body": ["Manrope"],
+                "label": ["Manrope"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .waveform-bar {
+            mask-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 12.5 0 25 10 T 50 10 T 75 10 T 100 10' fill='transparent' stroke='black' stroke-width='2'/%3E%3C/svg%3E");
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(82, 242, 245, 0.4);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary-container min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#060e20]/40 backdrop-blur-3xl shadow-[0_40px_40px_rgba(82,242,245,0.06)] flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed-dim">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="User profile surfer photo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7B_TgtbeTPjF9hCqgwTn_zzqVyOhddjRI2wpj11TOdwOOTqzaTVjzS06maZ6Zs1eza5HmnkREIWLV3-CCJVEknlh8wPaayl_kajvdoXV0SQYRh55ITl84Dxf4Q0aEMOID98Bsr3U6dkLqv4zGSW7x_nuwzROSHIDlHsPF_a13d_KCwZV4Wi026rMiQ9qAFGQf-hvycy-5DAv-mkW9oX8hW4Ez2FGO5-HDJey7SMFZQuTlTxDYCalj2Dx775F2wnwv1aRqR73nJMw"/>
+</div>
+<span class="font-['Lexend'] font-black italic tracking-tighter text-cyan-400 text-lg">The Kinetic Horizon</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-cyan-500/10 transition-colors text-cyan-400">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-7xl mx-auto space-y-10">
+<!-- Personalized Greeting -->
+<section class="mt-4">
+<span class="font-label text-on-surface-variant text-sm uppercase tracking-[0.2em]">Daily Briefing</span>
+<h1 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface mt-2 tracking-tight">Ready to Surf, <span class="text-primary text-glow">Alex?</span></h1>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Today's Workout (Featured Card) -->
+<div class="lg:col-span-8 group relative overflow-hidden rounded-[2rem] bg-surface-container-high h-[400px]">
+<img alt="Workout" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="High action surfer carving a wave" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKh21pj69Q0SWA9wM5X5tYHypyXb-rhTv1DQYFjiTJ-BexqDP02e3AaiJUAOnvZ2GB8ZoOW9eHLJfTXC91p4SGP5RaYJ2l_yOMQUqypWhOr5KpACQUBV5xGAy-uT7ClY-CYnH1v6ozJlFI7fWIUTYOMq9KNZEpZJgPuRr7OjVrV6d1piBQeAvlX0RGMTBge5A8cwEclTMjnUzGtjcw5rm7W1l9m_YNpf-iEe6PymK7iQSMr-LrMsmdXoWJ_M4fEzvnucBqBYS-UYE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+<div class="absolute inset-0 p-8 flex flex-col justify-end">
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary/20 backdrop-blur-md text-primary px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest border border-primary/20">Active Session</span>
+</div>
+<h2 class="font-headline text-4xl font-bold text-white mb-2">Paddle Power 2.0</h2>
+<div class="flex items-center gap-6 text-on-surface/80">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">timer</span>
+<span class="font-label text-sm uppercase tracking-wider">45 MIN</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm">bolt</span>
+<span class="font-label text-sm uppercase tracking-wider">High Intensity</span>
+</div>
+</div>
+<div class="mt-8 flex items-center gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-headline font-bold py-4 px-10 rounded-xl hover:scale-95 active:scale-90 transition-all shadow-[0_10px_30px_rgba(82,242,245,0.3)]">
+                            START TRAINING
+                        </button>
+<button class="w-14 h-14 rounded-xl bg-surface-variant/40 backdrop-blur-xl flex items-center justify-center border border-outline-variant/20 text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Weekly Progress -->
+<div class="lg:col-span-4 bg-surface-container-low rounded-[2rem] p-8 flex flex-col justify-between">
+<div>
+<h3 class="font-headline text-xl font-bold text-on-surface mb-1">Weekly Pulse</h3>
+<p class="text-on-surface-variant text-sm mb-8 tracking-wide">Stay in the flow, Alex.</p>
+<div class="flex justify-between items-end h-32 gap-3">
+<!-- Monday -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full bg-surface-container-highest rounded-full h-16 relative overflow-hidden">
+<div class="absolute bottom-0 w-full h-[60%] bg-primary rounded-full group-hover:h-[65%] transition-all"></div>
+</div>
+<span class="font-label text-[10px] text-on-surface-variant">M</span>
+</div>
+<!-- Tuesday -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full bg-surface-container-highest rounded-full h-24 relative overflow-hidden">
+<div class="absolute bottom-0 w-full h-[85%] bg-primary rounded-full group-hover:h-[90%] transition-all"></div>
+</div>
+<span class="font-label text-[10px] text-on-surface">T</span>
+</div>
+<!-- Wednesday -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full bg-surface-container-highest rounded-full h-12 relative overflow-hidden">
+<div class="absolute bottom-0 w-full h-[40%] bg-tertiary rounded-full group-hover:h-[45%] transition-all"></div>
+</div>
+<span class="font-label text-[10px] text-on-surface-variant">W</span>
+</div>
+<!-- Thursday -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full bg-surface-container-highest rounded-full h-28 relative overflow-hidden">
+<div class="absolute bottom-0 w-full h-[100%] bg-primary rounded-full shadow-[0_0_15px_rgba(82,242,245,0.4)]"></div>
+</div>
+<span class="font-label text-[10px] text-primary font-bold">T</span>
+</div>
+<!-- Friday -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full bg-surface-container-highest rounded-full h-20 relative overflow-hidden"></div>
+<span class="font-label text-[10px] text-on-surface-variant">F</span>
+</div>
+<!-- Sat -->
+<div class="flex-1 flex flex-col items-center gap-3 group">
+<div class="w-full bg-surface-container-highest rounded-full h-16 relative overflow-hidden"></div>
+<span class="font-label text-[10px] text-on-surface-variant">S</span>
+</div>
+</div>
+</div>
+<div class="mt-10 bg-surface-container-highest rounded-2xl p-5 border border-outline-variant/10">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Current Streak</span>
+<span class="font-headline font-bold text-tertiary">12 DAYS</span>
+</div>
+<div class="w-full h-1 bg-surface-dim rounded-full overflow-hidden">
+<div class="h-full w-3/4 bg-gradient-to-r from-tertiary to-tertiary-dim"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Access Categories -->
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">Skill Focus</h3>
+<p class="text-on-surface-variant text-sm mt-1">Refine your technical performance.</p>
+</div>
+<button class="text-primary font-label text-xs uppercase tracking-widest flex items-center gap-2 hover:opacity-80 transition-opacity">
+                    View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Core Stability -->
+<div class="group relative aspect-[4/3] rounded-3xl overflow-hidden bg-surface-container-low border border-outline-variant/5">
+<img alt="Core" class="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="Athlete performing a core balance exercise" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU8d5sBBzvVXijSAvnX6dxEemCmhBqV31SYwDkBOhnnhbRluJfAr-RmN5sWTUN3-giCokURPipLGHyhL9u-nesmOFv95ZLBM-zAOmy2qNloEtTKBSJBPWQAKlcd7Ck6J38HRnU4pc3fhJAsoSRt4kpb9Zxp4jKm7-VALh1ZkBkHeeJPZvHIl_zVj8UCBULRwS0NKxkvzJfQf9ZK_PHLAqI5KSlmQdOgVv8AcnfgheuGNq2-aWf4DQWAe-2n4k6asXiUC5dTRymi1s"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<h4 class="font-headline text-xl font-bold mb-1">Core Stability</h4>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest">12 Workouts</p>
+</div>
+</div>
+<!-- Breathwork -->
+<div class="group relative aspect-[4/3] rounded-3xl overflow-hidden bg-surface-container-low border border-outline-variant/5">
+<img alt="Breath" class="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="Calm scene of a person meditating by the ocean" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtYlC9jK1bb6FMyDNeDBBhj60TybAzxp3Izl7PKTlGQBCAqvqwNXu7ruYBumtpyXwzELqhc0DZmjU66RYLOVPg-LLrIAC-ohHFpyKDbPK-PpL0KcyTrwW39wU8_33HIICKkJ1Gt6rhXrKwzmYn_ZBr4CHp8bpGW-IjDB1zY0yA2dWIXSACDIgz7ULOUwMD-iJ-ZvIHSWk3RU5XUMJKacd0DE8_SjdQvWAtmCS2giHqGGKMf1wch9aP_mLXM_Ycd5T4qThYBqpwRW8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<h4 class="font-headline text-xl font-bold mb-1">Breathwork</h4>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest">8 Sessions</p>
+</div>
+</div>
+<!-- Flexibility -->
+<div class="group relative aspect-[4/3] rounded-3xl overflow-hidden bg-surface-container-low border border-outline-variant/5">
+<img alt="Flex" class="absolute inset-0 w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="Surfer stretching on the beach during sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcHGTv_15rvsbJi41o75Cgesdz-_tuiRzSxkJHo5qLBuMCigaPA5jgaPA5DyLmqm48OQxh2LgtXZvnH1eAKycSFoqvYqmhdhcrgq_V8qeDbHPzbKoLdA309__v6OAlo0jOJL2Z8jjxi3dTrd9aVcCHUCooMbT2g0v6dYER6rLfb0txkcAcbsrA9jgK0pe2A8QX503M3dVuJWSz4NEBaJufn9EIDv2IXz8Pq8Bk6ESUToJt7B9Eo2TWNIyEzpCI61MAUTk9IOZ0Ml4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<h4 class="font-headline text-xl font-bold mb-1">Mobility</h4>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest">15 Sessions</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-[#060e20]/40 backdrop-blur-3xl z-50 rounded-t-3xl shadow-[0_-10px_30px_rgba(6,14,32,0.5)]">
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-600 text-[#060e20] rounded-2xl px-5 py-2 scale-105 transform transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 px-4 py-2 hover:text-cyan-200 transition-all scale-96 active:duration-150" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest mt-1">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 px-4 py-2 hover:text-cyan-200 transition-all scale-96 active:duration-150" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest mt-1">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 px-4 py-2 hover:text-cyan-200 transition-all scale-96 active:duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -3,7 +3,7 @@
 export const mobilityLibrary = {
   "shoulder-cars": {
     id: "shoulder-cars",
-    name: "Shoulder Cars",
+    name: "Shoulder CARS",
     description:
       "Controlled Articular Rotations for the shoulder to improve joint mobility and stability through a full pain-free range.",
     equipment: null,
@@ -22,7 +22,7 @@ export const mobilityLibrary = {
 
   "quadruped-shoulder-cars": {
     id: "quadruped-shoulder-cars",
-    name: "Quadruped Shoulder CARs",
+    name: "Quadruped Shoulder CARS",
     description:
       "Controlled rotation drill that improves shoulder capsule mobility and stability.",
     equipment: "None",
@@ -207,7 +207,7 @@ export const mobilityLibrary = {
 
   "hip-cars": {
     id: "hip-cars",
-    name: "Hip Cars",
+    name: "Hip CARS",
     description:
       "Controlled Articular Rotations for the hip to improve joint mobility and stability through a full pain-free range.",
     equipment: null,
@@ -312,9 +312,30 @@ export const mobilityLibrary = {
 
   //   ***** SPINAL MOBILITY *****
 
-  "thoracic-spine-open-books": {
-    id: "thoracic-spine-open-books",
-    name: "Thoracic Spine Open Books",
+  "tspine-extension-foam-rolling": {
+    id: "tspine-extension-foam-rolling",
+    name: "T-Spine Extension Foam Rolling",
+    description:
+      "Improves thoracic extension and helps open the upper back for better paddling posture and overhead mechanics.",
+    equipment: "Foam roller",
+    steps: [
+      "Sit on the floor with a foam roller placed horizontally behind your upper back.",
+      "Lie back so the roller is at your mid-to-upper thoracic spine.",
+      "Support your head with your hands and keep your hips lightly grounded.",
+      "Gently extend your upper back over the roller while exhaling.",
+      "Return to neutral and repeat slowly for controlled reps.",
+      "Shift the roller slightly up or down to target nearby thoracic segments.",
+      "Avoid overextending your lower back and keep movement focused in the upper spine.",
+    ],
+    category: "mobility",
+    muscleGroups: ["thoracic_spine", "shoulders"],
+    difficulty: "beginner",
+    videoUrl: null,
+  },
+
+  "open-books": {
+    id: "open-books",
+    name: "Open Books",
     description:
       "Improves thoracic rotation and upper-back mobility for better turning mechanics.",
     equipment: "None",
@@ -330,6 +351,50 @@ export const mobilityLibrary = {
     category: "mobility",
     muscleGroups: ["thoracic_spine", "shoulders"],
     difficulty: "beginner",
+    videoUrl: null,
+  },
+
+  "cobra-pose": {
+    id: "cobra-pose",
+    name: "Cobra Pose",
+    description:
+      "Enhances thoracic spine extension, improves posture, and builds foundational spinal control—key for paddling efficiency and pop-up mechanics in surfing.",
+    equipment: null,
+    steps: [
+      "Lie face down on the ground with legs extended and the tops of your feet flat",
+      "Place your hands under your shoulders with elbows tucked close to your body",
+      "Engage your glutes and lightly brace your core to protect your lower back",
+      "Press gently through your hands and lift your chest off the ground",
+      "Focus on extending through the mid-back (thoracic spine), not just the lower back",
+      "Keep shoulders down and away from your ears",
+      "Lift only as high as you can maintain control and no pain",
+      "Pause briefly at the top while breathing steadily",
+      "Slowly lower back down with control to the starting position",
+    ],
+    category: "mobility",
+    muscleGroups: ["thoracic_spine", "shoulders", "core", "lower_back"],
+    difficulty: "beginner",
+    tips: [
+      "Avoid overextending the lower back—think length, not height",
+      "Keep your neck neutral; don’t crank your head upward",
+      "Use your back muscles more than your arms to initiate the lift",
+      "Breathe deeply to enhance mobility and relaxation",
+    ],
+    commonMistakes: [
+      "Pushing too hard with the arms and compressing the lower back",
+      "Shrugging shoulders toward the ears",
+      "Locking out elbows aggressively",
+      "Lifting too high without control",
+    ],
+    regressions: [
+      "Sphinx pose (forearms on the ground for reduced intensity)",
+      "Partial range cobra (lifting only slightly off the ground)",
+    ],
+    progressions: [
+      "Extended hold with deep breathing",
+      "Cobra to child's pose flow",
+      "Add slow tempo reps for increased control",
+    ],
     videoUrl: null,
   },
 };

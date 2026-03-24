@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#192540",
+                        "error-container": "#9f0519",
+                        "surface-dim": "#060e20",
+                        "on-background": "#dee5ff",
+                        "on-secondary-fixed": "#283856",
+                        "surface-container-low": "#091328",
+                        "inverse-primary": "#006a6c",
+                        "on-tertiary-fixed": "#320a00",
+                        "outline-variant": "#40485d",
+                        "on-error": "#490006",
+                        "inverse-on-surface": "#4d556b",
+                        "tertiary-container": "#fe7e4f",
+                        "primary-fixed-dim": "#3de4e7",
+                        "on-tertiary": "#5c1a00",
+                        "primary-container": "#0cd0d3",
+                        "on-surface-variant": "#a3aac4",
+                        "inverse-surface": "#faf8ff",
+                        "surface-bright": "#1f2b49",
+                        "tertiary-fixed": "#ff946e",
+                        "on-secondary-container": "#c0d1f6",
+                        "surface-container-highest": "#192540",
+                        "on-tertiary-fixed-variant": "#6b1f00",
+                        "secondary-fixed-dim": "#b9c9ee",
+                        "surface-tint": "#52f2f5",
+                        "on-primary-fixed": "#004344",
+                        "on-error-container": "#ffa8a3",
+                        "tertiary-fixed-dim": "#fe7e4f",
+                        "on-secondary": "#3b4b6a",
+                        "on-surface": "#dee5ff",
+                        "secondary-container": "#374765",
+                        "on-secondary-fixed-variant": "#445474",
+                        "on-primary-container": "#004041",
+                        "secondary-fixed": "#c7d7fd",
+                        "secondary": "#c7d7fd",
+                        "surface-container": "#0f1930",
+                        "on-tertiary-container": "#491300",
+                        "on-primary": "#005859",
+                        "on-primary-fixed-variant": "#006264",
+                        "surface-container-high": "#141f38",
+                        "background": "#060e20",
+                        "tertiary": "#ff946e",
+                        "primary-dim": "#3de4e7",
+                        "error-dim": "#d7383b",
+                        "surface-container-lowest": "#000000",
+                        "error": "#ff716c",
+                        "tertiary-dim": "#f7794b",
+                        "surface": "#060e20",
+                        "outline": "#6d758c",
+                        "secondary-dim": "#b9c9ee",
+                        "primary-fixed": "#52f2f5",
+                        "primary": "#52f2f5"
+                    },
+                    fontFamily: {
+                        "headline": ["Lexend"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-card {
+            background: rgba(25, 37, 64, 0.4);
+            backdrop-filter: blur(24px);
+        }
+        .kinetic-gradient {
+            background: linear-gradient(135deg, #52f2f5 0%, #0cd0d3 100%);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary-container">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 w-full z-50 bg-[#060e20]/40 backdrop-blur-3xl shadow-[0_40px_40px_rgba(82,242,245,0.06)] flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="User profile surfer checking the waves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCselNEuxagU1R-spRhf1V2MENi4PXpQl68GpAR0YUylZk3huGHLCstfCHGBYwXgtxVZ5Z30aVnRfbJlAk5STsC6yRG_sI8_H-cnd2UkLmy8bGbgbHZaHolM8mYATXp4aMW6hsW7WBTo4acB9vv8npBDS_kHTOdc7Ev2NgXFe4721Ah6neulnhlTpuTn-2eyiKBqHLiRR7L5XggKJXaHffCAAvPVHT86gdWX-PUYdjpjht9KBJSCL_hdtTtQYw7e4O9THxVXvoqquw"/>
+</div>
+<h1 class="font-headline font-bold text-lg tracking-tight text-cyan-400 dark:text-cyan-300">The Kinetic Horizon</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-cyan-500/10 transition-colors scale-96 active:duration-150">
+<span class="material-symbols-outlined text-slate-400">notifications</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-6">
+<!-- Search & Filter Section -->
+<section class="mb-10">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-2 focus:ring-primary/20 transition-all font-body" placeholder="Find your next session..." type="text"/>
+</div>
+<div class="flex gap-3 mt-5 overflow-x-auto no-scrollbar py-2">
+<button class="px-5 py-2 rounded-full bg-surface-container-highest text-on-surface whitespace-nowrap text-sm font-label border border-primary/10">All Workouts</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-on-surface-variant whitespace-nowrap text-sm font-label hover:bg-surface-container-high transition-colors">Beginner</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-on-surface-variant whitespace-nowrap text-sm font-label hover:bg-surface-container-high transition-colors">Intermediate</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-low text-on-surface-variant whitespace-nowrap text-sm font-label hover:bg-surface-container-high transition-colors">Elite</button>
+</div>
+</section>
+<!-- Category: Power & Endurance -->
+<section class="mb-12">
+<div class="flex justify-between items-end mb-6">
+<div>
+<span class="font-label text-xs uppercase tracking-widest text-primary font-bold">Explosive Energy</span>
+<h2 class="font-headline text-2xl font-bold mt-1">Power &amp; Endurance</h2>
+</div>
+<button class="text-primary text-sm font-label font-bold">View all</button>
+</div>
+<div class="flex gap-6 overflow-x-auto no-scrollbar -mx-6 px-6">
+<!-- Card 1 -->
+<div class="flex-shrink-0 w-72 group cursor-pointer">
+<div class="relative h-96 rounded-3xl overflow-hidden bg-surface-container-high mb-4 shadow-2xl">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Professional surfer training paddle power in ocean" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_RK_ncwjkFLXijg5gF9MdOeOwh_EBU3sf-aQKOCENBZkZXEdZldL8ft0nSNrsnI8BWRgMDROBTChwEAtdAdXEb4knTTt_LD8atOjgrkBi65oK_oIJYJdp47ge9tqJixFvSXh63-3SNTCMpVovIdRoaoFU7EKuw_i8IuHEDb093P97ggSZO99lXV6gTFhlaQ3EQcgDYNI5U6Ta_t1VwGulAnwRW4lBMGynHlj2R2BcZfobr54uc9y3QgmdmyVVwapJjf799AZV_U8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-surface-container-highest/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider">35 min</span>
+<span class="bg-tertiary/20 backdrop-blur-md text-tertiary px-3 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider">Pro</span>
+</div>
+<div class="absolute bottom-0 w-full glass-card p-5">
+<h3 class="font-headline font-bold text-lg mb-1 leading-tight">Atlantic Paddle Burn</h3>
+<p class="text-on-surface-variant text-xs line-clamp-2">High-intensity paddle simulation focusing on posterior chain engagement.</p>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex-shrink-0 w-72 group cursor-pointer">
+<div class="relative h-96 rounded-3xl overflow-hidden bg-surface-container-high mb-4 shadow-2xl">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Athlete performing explosive lunges on beach" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlDi8mCP9lCive1P28V4JI3znGNb29rxDeAIa8BWIY_CLk9mo4cfIGWQPxGmmigwjdV1civz8Nu0AmGrq6cIMjD3ULbompY1vBPoHaJqOGJ1Tr3U5ZHdsMWzroIHKIbJDjFlq7uWoxdCtspq3-pXQJOlwfEexAcljlgEAucosBohhzIXmU8Sk-r16NX99r8TWkobeB0fQF9tYhBmHsx3k3KM9KS1C1kmfwStWp0hev_B3cPHxz7TmnPxiFyuBRFO4HN0wRp6JFmw8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-surface-container-highest/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider">20 min</span>
+<span class="bg-primary/20 backdrop-blur-md text-primary px-3 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-wider">Int</span>
+</div>
+<div class="absolute bottom-0 w-full glass-card p-5">
+<h3 class="font-headline font-bold text-lg mb-1 leading-tight">Wave-Break Squats</h3>
+<p class="text-on-surface-variant text-xs line-clamp-2">Lower body power generation for explosive take-offs and heavy turns.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Balance & Agility (Bento-style Grid) -->
+<section class="mb-12">
+<div class="mb-6">
+<span class="font-label text-xs uppercase tracking-widest text-primary font-bold">Neural Control</span>
+<h2 class="font-headline text-2xl font-bold mt-1">Balance &amp; Agility</h2>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-2 relative h-48 rounded-3xl overflow-hidden bg-surface-container-high group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Surfer training on a balance board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAibwxlPQx0I9oEsRxw54MNuM0Xq4wsFbO6xY6AfJWLgQYiYC_qhaXDDPgn34w5MwkU1d_u4pmea5wZ3zCeAjNOxqVxulXmZUvpoeCPUwlarhKvaGrBIpZr5B9R_HMFW-_mo6TmWYYEIwf0qg3GtQZ0q0ikOSVUDBGmuF4w3Mr4vjpNQRHBUE7ZOqOUr4XxLABAT0-vD2px_Hp8x0kV5UeAAZAymFwip5zymePul85rXsKDveI5YZBMMl7dG4CIsQ_6EefrUv2t4jc"/>
+<div class="absolute inset-0 bg-surface-dim/40 group-hover:bg-surface-dim/20 transition-colors"></div>
+<div class="absolute bottom-4 left-5">
+<h3 class="font-headline font-bold text-xl">Core Proprioception</h3>
+<p class="text-xs text-on-surface-variant font-label">15 MIN • INTERMEDIATE</p>
+</div>
+</div>
+<div class="relative h-64 rounded-3xl overflow-hidden bg-surface-container-high group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Strength training session details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKCTeKWUb15xaV9j7NBXEps5eYYzMmnToigJ8QTOWmjmK0qIvvmHz-t2UiwbDcQavaU7F3MZsGSRJ1LniL6x2MJuGip-WXQ6Qj6VTcXKRr2c0P-MG8oy-cGHPf1UFZPr97vUFM6uRPgzpbQcT8mP4rFPRbfx8wb58e46ki7GsW-SJmRmcBUJ-xRjtfZqNOHusxvARSMwq43xtjMmBC9hOZ9oG46cD9JqO6dOauM8SvmKp85kwD2uJF0_C6hvGNq_HlQvyfkZSBFks"/>
+<div class="absolute inset-0 bg-surface-dim/40 group-hover:bg-surface-dim/20 transition-colors"></div>
+<div class="absolute bottom-4 left-5 pr-4">
+<h3 class="font-headline font-bold text-lg leading-tight">Ankle Stability</h3>
+<p class="text-[10px] text-on-surface-variant font-label uppercase">10 MIN</p>
+</div>
+</div>
+<div class="relative h-64 rounded-3xl overflow-hidden bg-surface-container-high group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Agility ladder workout on sand" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf8vNZpEf1nWeWajyttCKa1llT8vKOy_ZwuHr3zPBJVVTZlx8KN_V3SGhY-y8KOO3Q5D1st6MwWBK19JYeZDEkzJMcuAGBygzIsQW2OzgkFAlgLO_7k7_h4Kg6XoXiLOxWNTGbybN9aS7jUsBq5Hm1vQWit6eG8AvUzcuGeKfsrWKiLzRY7r83BI2aMeuIGUWIz8azwrGzoZg0WJY8cIEdV67RZavZwaJarFKTg76q2JSR0Hile8OEPb8ee2A-d8eOwP3Ufluqsrw"/>
+<div class="absolute inset-0 bg-surface-dim/40 group-hover:bg-surface-dim/20 transition-colors"></div>
+<div class="absolute bottom-4 left-5 pr-4">
+<h3 class="font-headline font-bold text-lg leading-tight">Sand Sprints</h3>
+<p class="text-[10px] text-on-surface-variant font-label uppercase">25 MIN</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Flexibility & Flow -->
+<section class="mb-12">
+<div class="flex justify-between items-end mb-6">
+<div>
+<span class="font-label text-xs uppercase tracking-widest text-primary font-bold">Supple Strength</span>
+<h2 class="font-headline text-2xl font-bold mt-1">Flexibility &amp; Flow</h2>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto no-scrollbar -mx-6 px-6">
+<div class="flex-shrink-0 w-80 bg-surface-container-low rounded-[2rem] p-4 flex gap-4 items-center group cursor-pointer">
+<div class="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="Yoga practitioner in flow state" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKhkpr-VPQeTlo5w7VKIRPlsT8gIFc0vc8G5oKq2OraqaQxhLMM88li6Xwv1nlp6_GRd7LZvd5oUOqbsSLcUnjIJ2FqFTjRkV_w7cWnGADWHZCO0odh_uJG1HHHL4WJ0kxX-wL389w59I-zZoM4YN0igqfAKh0jj4owKfZJBuczlLCRTzPUphkOk7uD_JPGBfDLTQwPRNklbSKANnQFvmhEJsq6EtoQMT193yWdSbijBikcT4F1-CgiYYsoTWnKJHQhjMcOpfIpK8"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface">Hip Mobility Flow</h3>
+<p class="text-xs text-on-surface-variant mb-2">Essential for bottom turns.</p>
+<span class="text-[10px] bg-primary-container/20 text-primary-fixed px-2 py-0.5 rounded-full font-bold">12 MIN</span>
+</div>
+</div>
+<div class="flex-shrink-0 w-80 bg-surface-container-low rounded-[2rem] p-4 flex gap-4 items-center group cursor-pointer">
+<div class="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform" data-alt="Deep stretching for surfers" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_Pj2hSe1UuJ2kqGLFXe2U6w4U1GWVZOwv1tgrU1phUectS2Kg9Z-aQtQ1S0EfHJLjh5vLrTaHtCq82_ZwSHSfzLRdn1rH3vy1TfGx6G1FcpTpX45TgTwVRLDbEkWABtIPUmpgaF-cx1pf3fvDgDjLE96uypfbllNzK8fkfGsiy6-iBTLHbmBg_7Aji1TfIMd7qu553xNa2m0HF6_4SA49YLT7GL9WTcx43Yo_5-3ucV1DyGXIPK017zocyelSrk50WDk-k0TKj-U"/>
+</div>
+<div>
+<h3 class="font-headline font-bold text-base text-on-surface">Shoulder Unbind</h3>
+<p class="text-xs text-on-surface-variant mb-2">Recover from long sessions.</p>
+<span class="text-[10px] bg-primary-container/20 text-primary-fixed px-2 py-0.5 rounded-full font-bold">15 MIN</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Ocean Breathing -->
+<section class="mb-12">
+<div class="mb-6">
+<span class="font-label text-xs uppercase tracking-widest text-primary font-bold">Mental Resilience</span>
+<h2 class="font-headline text-2xl font-bold mt-1">Ocean Breathing</h2>
+</div>
+<div class="bg-surface-container-low rounded-[2.5rem] p-8 relative overflow-hidden group cursor-pointer">
+<div class="absolute -right-10 -top-10 w-48 h-48 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<div class="w-20 h-20 kinetic-gradient rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(82,242,245,0.4)]">
+<span class="material-symbols-outlined text-on-primary-container text-4xl">air</span>
+</div>
+<h3 class="font-headline font-bold text-2xl mb-2">Wipeout Calm Mastery</h3>
+<p class="text-on-surface-variant text-sm mb-6 max-w-xs">Train your CO2 tolerance and maintain focus under the heaviest sets. High-impact breathwork for elite surfers.</p>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<span class="font-headline font-bold text-primary">8:00</span>
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">Minutes</span>
+</div>
+<div class="w-[1px] h-8 bg-outline-variant/30 self-center"></div>
+<div class="flex flex-col items-center">
+<span class="font-headline font-bold text-primary">Expert</span>
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">Level</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-2 bg-[#060e20]/40 backdrop-blur-3xl shadow-[0_-10px_30px_rgba(6,14,32,0.5)] z-50 rounded-t-3xl">
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 px-4 py-2 hover:text-cyan-200 transition-all scale-96 active:duration-150 transform transition-transform" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-cyan-400 to-cyan-600 text-[#060e20] rounded-2xl px-5 py-2 scale-105 transition-all active:duration-150 transform" href="#">
+<span class="material-symbols-outlined mb-1">fitness_center</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest">Library</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 px-4 py-2 hover:text-cyan-200 transition-all scale-96 active:duration-150 transform transition-transform" href="#">
+<span class="material-symbols-outlined mb-1">leaderboard</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 opacity-70 px-4 py-2 hover:text-cyan-200 transition-all scale-96 active:duration-150 transform transition-transform" href="#">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-['Manrope'] font-medium text-[10px] uppercase tracking-widest">Profile</span>
+</a>
+</nav>
+</body></html>

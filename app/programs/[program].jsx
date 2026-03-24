@@ -4,6 +4,7 @@ import {
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { useState, useMemo, useCallback } from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -11,17 +12,28 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { programsData } from "../../data/index";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "../../contexts/ThemeContext";
+import { ROUTES } from "../../constants/routes";
 
-// Move helper function outside component for better performance
-const toArray = (v) =>
-  Array.isArray(v)
-    ? v
-    : v
-      ? String(v)
-          .split(/\n/)
-          .map((s) => s.trim())
-          .filter(Boolean)
-      : [];
+const fallbackExerciseImage = require("../../assets/backside-hit.png");
+
+const getExerciseImageSource = (exercise) => {
+  const imageCandidate =
+    exercise?.photo ||
+    exercise?.image ||
+    exercise?.imageUrl ||
+    exercise?.thumbnail ||
+    exercise?.backgroundImage;
+
+  if (!imageCandidate) {
+    return fallbackExerciseImage;
+  }
+
+  if (typeof imageCandidate === "string") {
+    return { uri: imageCandidate };
+  }
+
+  return imageCandidate;
+};
 
 export default function ProgramDetail() {
   // Gets program name from URL
@@ -62,6 +74,17 @@ export default function ProgramDetail() {
       [key]: !prev[key],
     }));
   }, []);
+
+  const handleExercisePress = useCallback(
+    (exercise) => {
+      const targetId = exercise?.id ?? exercise?.exerciseId;
+      if (!targetId) {
+        return;
+      }
+      router.push(ROUTES.exercise(targetId));
+    },
+    [router],
+  );
 
   if (!currentProgram || currentProgram.isCustomPage) {
     return (
@@ -253,142 +276,176 @@ export default function ProgramDetail() {
                                         key={exerciseIndex}
                                         style={styles.exerciseCard}
                                       >
-                                        <Text style={styles.exerciseName}>
-                                          {exercise.name}
-                                        </Text>
-                                        {exercise.description && (
-                                          <Text
-                                            style={styles.exerciseDescription}
-                                          >
-                                            {exercise.description}
-                                          </Text>
-                                        )}
+                                        <View
+                                          style={styles.exerciseCardContent}
+                                        >
+                                          <Image
+                                            source={getExerciseImageSource(
+                                              exercise,
+                                            )}
+                                            style={styles.exerciseImage}
+                                            resizeMode="cover"
+                                          />
 
-                                        {/* Equipment */}
+                                          <View style={styles.exerciseCardMain}>
+                                            <Text style={styles.exerciseName}>
+                                              {exercise.name}
+                                            </Text>
 
-                                        {exercise.equipment && (
-                                          <Text style={styles.exerciseDetail}>
-                                            🏋️{" "}
-                                            <Text
-                                              style={{ fontWeight: "bold" }}
-                                            >
-                                              Equipment:
-                                            </Text>{" "}
-                                            {exercise.equipment}
-                                          </Text>
-                                        )}
-
-                                        {/* Steps */}
-                                        {Array.isArray(exercise.steps) &&
-                                          exercise.steps.length > 0 &&
-                                          (() => {
-                                            const stepsKey = `steps-${sectionIndex}-${subIndex}-${exerciseIndex}`;
-                                            const isStepsExpanded =
-                                              expandedSteps[stepsKey];
-
-                                            return (
-                                              <View style={styles.stepList}>
-                                                <TouchableOpacity
-                                                  onPress={() =>
-                                                    toggleSteps(stepsKey)
-                                                  }
+                                            {exercise.equipment && (
+                                              <Text
+                                                style={styles.exerciseDetail}
+                                              >
+                                                🏋️{" "}
+                                                <Text
                                                   style={{
-                                                    flexDirection: "row",
-                                                    alignItems: "center",
-                                                    marginBottom: 8,
+                                                    fontWeight: "bold",
                                                   }}
-                                                  accessibilityRole="button"
-                                                  accessibilityLabel="Exercise steps"
-                                                  accessibilityState={{
-                                                    expanded: isStepsExpanded,
-                                                  }}
-                                                  accessibilityHint={`Tap to ${isStepsExpanded ? "hide" : "show"} steps`}
                                                 >
-                                                  <Text
-                                                    style={
-                                                      styles.exerciseDetail
-                                                    }
-                                                  >
-                                                    📋{" "}
-                                                    <Text
+                                                  Equipment:
+                                                </Text>{" "}
+                                                {exercise.equipment}
+                                              </Text>
+                                            )}
+
+                                            {/* Steps */}
+                                            {Array.isArray(exercise.steps) &&
+                                              exercise.steps.length > 0 &&
+                                              (() => {
+                                                const stepsKey = `steps-${sectionIndex}-${subIndex}-${exerciseIndex}`;
+                                                const isStepsExpanded =
+                                                  expandedSteps[stepsKey];
+
+                                                return (
+                                                  <View style={styles.stepList}>
+                                                    <TouchableOpacity
+                                                      onPress={() =>
+                                                        toggleSteps(stepsKey)
+                                                      }
                                                       style={{
-                                                        fontWeight: "bold",
+                                                        flexDirection: "row",
+                                                        alignItems: "center",
+                                                        marginBottom: 8,
                                                       }}
+                                                      accessibilityRole="button"
+                                                      accessibilityLabel="Exercise steps"
+                                                      accessibilityState={{
+                                                        expanded:
+                                                          isStepsExpanded,
+                                                      }}
+                                                      accessibilityHint={`Tap to ${isStepsExpanded ? "hide" : "show"} steps`}
                                                     >
-                                                      Steps:
-                                                    </Text>
-                                                  </Text>
-                                                  <Ionicons
-                                                    name={
-                                                      isStepsExpanded
-                                                        ? "chevron-up"
-                                                        : "chevron-down"
-                                                    }
-                                                    size={16}
-                                                    color={theme.textSecondary}
-                                                    style={{ marginLeft: 8 }}
-                                                  />
-                                                </TouchableOpacity>
-                                                {isStepsExpanded &&
-                                                  exercise.steps.map(
-                                                    (step, sIdx) => (
-                                                      <View
-                                                        key={`step-${exerciseIndex}-${sIdx}`}
-                                                        style={styles.stepItem}
+                                                      <Text
+                                                        style={
+                                                          styles.exerciseDetail
+                                                        }
                                                       >
+                                                        📋{" "}
                                                         <Text
-                                                          style={
-                                                            styles.stepIndex
-                                                          }
+                                                          style={{
+                                                            fontWeight: "bold",
+                                                          }}
                                                         >
-                                                          {sIdx + 1}.
+                                                          Steps:
                                                         </Text>
-                                                        <Text
-                                                          style={
-                                                            styles.stepText
-                                                          }
-                                                        >
-                                                          {String(step).trim()}
-                                                        </Text>
-                                                      </View>
-                                                    ),
-                                                  )}
-                                              </View>
-                                            );
-                                          })()}
-                                        {exercise.reps && (
-                                          <Text style={styles.exerciseReps}>
-                                            Reps: {exercise.reps}
-                                          </Text>
-                                        )}
-                                        {exercise.sets && (
-                                          <Text style={styles.exerciseSets}>
-                                            Sets: {exercise.sets}
-                                          </Text>
-                                        )}
-                                        {exercise.tempo && (
-                                          <Text style={styles.exerciseDetail}>
-                                            ⏱️ Tempo: {exercise.tempo}
-                                          </Text>
-                                        )}
-                                        {exercise.rest && (
-                                          <Text style={styles.exerciseDetail}>
-                                            Rest: {exercise.rest}
-                                          </Text>
-                                        )}
-                                        {exercise.progression && (
-                                          <Text
-                                            style={styles.exerciseProgression}
-                                          >
-                                            📈 Progression:{" "}
-                                            {exercise.progression}
-                                          </Text>
-                                        )}
-                                        {exercise.tips && (
-                                          <Text style={styles.exerciseTips}>
-                                            💡 {exercise.tips}
-                                          </Text>
-                                        )}
+                                                      </Text>
+                                                      <Ionicons
+                                                        name={
+                                                          isStepsExpanded
+                                                            ? "chevron-up"
+                                                            : "chevron-down"
+                                                        }
+                                                        size={16}
+                                                        color={
+                                                          theme.textSecondary
+                                                        }
+                                                        style={{
+                                                          marginLeft: 8,
+                                                        }}
+                                                      />
+                                                    </TouchableOpacity>
+                                                    {isStepsExpanded &&
+                                                      exercise.steps.map(
+                                                        (step, sIdx) => (
+                                                          <View
+                                                            key={`step-${exerciseIndex}-${sIdx}`}
+                                                            style={
+                                                              styles.stepItem
+                                                            }
+                                                          >
+                                                            <Text
+                                                              style={
+                                                                styles.stepIndex
+                                                              }
+                                                            >
+                                                              {sIdx + 1}.
+                                                            </Text>
+                                                            <Text
+                                                              style={
+                                                                styles.stepText
+                                                              }
+                                                            >
+                                                              {String(
+                                                                step,
+                                                              ).trim()}
+                                                            </Text>
+                                                          </View>
+                                                        ),
+                                                      )}
+                                                  </View>
+                                                );
+                                              })()}
+                                            {exercise.reps && (
+                                              <Text style={styles.exerciseReps}>
+                                                Reps: {exercise.reps}
+                                              </Text>
+                                            )}
+                                            {exercise.sets && (
+                                              <Text style={styles.exerciseSets}>
+                                                Sets: {exercise.sets}
+                                              </Text>
+                                            )}
+                                            {exercise.tempo && (
+                                              <Text
+                                                style={styles.exerciseDetail}
+                                              >
+                                                ⏱️ Tempo: {exercise.tempo}
+                                              </Text>
+                                            )}
+                                            {exercise.rest && (
+                                              <Text
+                                                style={styles.exerciseDetail}
+                                              >
+                                                Rest: {exercise.rest}
+                                              </Text>
+                                            )}
+                                            {exercise.tips && (
+                                              <Text style={styles.exerciseTips}>
+                                                💡 {exercise.tips}
+                                              </Text>
+                                            )}
+                                            {(exercise.id ||
+                                              exercise.exerciseId) && (
+                                              <TouchableOpacity
+                                                style={
+                                                  styles.exerciseLinkButton
+                                                }
+                                                onPress={() =>
+                                                  handleExercisePress(exercise)
+                                                }
+                                                accessibilityRole="button"
+                                                accessibilityLabel={`Open ${exercise.name} details`}
+                                                accessibilityHint="Opens the exercise detail page"
+                                              >
+                                                <Ionicons
+                                                  name="ellipsis-horizontal"
+                                                  size={20}
+                                                  color={theme.colors.primary}
+                                                />
+                                              </TouchableOpacity>
+                                            )}
+                                          </View>
+                                        </View>
                                       </View>
                                     ),
                                   )}
@@ -440,114 +497,66 @@ export default function ProgramDetail() {
                                 isOnlyInPair && styles.middleInPair,
                               ]}
                             >
-                              <Text style={styles.exerciseName}>
-                                {exercise.name}
-                              </Text>
-                              {exercise.description && (
-                                <Text style={styles.exerciseDescription}>
-                                  {exercise.description}
-                                </Text>
-                              )}
+                              <View style={styles.exerciseCardContent}>
+                                <Image
+                                  source={getExerciseImageSource(exercise)}
+                                  style={styles.exerciseImage}
+                                  resizeMode="cover"
+                                />
 
-                              {exercise.equipment && (
-                                <Text style={styles.exerciseDetail}>
-                                  🏋️{" "}
-                                  <Text style={{ fontWeight: "bold" }}>
-                                    Equipment:
-                                  </Text>{" "}
-                                  {exercise.equipment}
-                                </Text>
-                              )}
-
-                              {/* Steps */}
-
-                              {Array.isArray(exercise.steps) &&
-                                exercise.steps.length > 0 &&
-                                (() => {
-                                  const stepsKey = `steps-${sectionIndex}-${exerciseIndex}`;
-                                  const isStepsExpanded =
-                                    expandedSteps[stepsKey];
-
-                                  return (
-                                    <View style={styles.stepList}>
-                                      <TouchableOpacity
-                                        onPress={() => toggleSteps(stepsKey)}
-                                        style={{
-                                          flexDirection: "row",
-                                          alignItems: "center",
-                                          marginBottom: 8,
-                                        }}
-                                        accessibilityRole="button"
-                                        accessibilityLabel="Exercise steps"
-                                        accessibilityState={{
-                                          expanded: isStepsExpanded,
-                                        }}
-                                        accessibilityHint={`Tap to ${isStepsExpanded ? "hide" : "show"} steps`}
-                                      >
-                                        <Text style={styles.exerciseDetail}>
-                                          📋{" "}
-                                          <Text style={{ fontWeight: "bold" }}>
-                                            Steps:
-                                          </Text>
-                                        </Text>
-                                        <Ionicons
-                                          name={
-                                            isStepsExpanded
-                                              ? "chevron-up"
-                                              : "chevron-down"
-                                          }
-                                          size={16}
-                                          color={theme.colors.textSecondary}
-                                          style={{ marginLeft: 8 }}
-                                        />
-                                      </TouchableOpacity>
-                                      {isStepsExpanded &&
-                                        exercise.steps.map((step, sIdx) => (
-                                          <View
-                                            key={`step-${exerciseIndex}-${sIdx}`}
-                                            style={styles.stepItem}
-                                          >
-                                            <Text style={styles.stepIndex}>
-                                              {sIdx + 1}.
-                                            </Text>
-                                            <Text style={styles.stepText}>
-                                              {String(step).trim()}
-                                            </Text>
-                                          </View>
-                                        ))}
-                                    </View>
-                                  );
-                                })()}
-                              {exercise.reps && (
-                                <Text style={styles.exerciseReps}>
-                                  Reps: {exercise.reps}
-                                </Text>
-                              )}
-                              {exercise.sets && (
-                                <Text style={styles.exerciseSets}>
-                                  Sets: {exercise.sets}
-                                </Text>
-                              )}
-                              {exercise.tempo && (
-                                <Text style={styles.exerciseDetail}>
-                                  ⏱️ Tempo: {exercise.tempo}
-                                </Text>
-                              )}
-                              {exercise.rest && (
-                                <Text style={styles.exerciseDetail}>
-                                  Rest: {exercise.rest}
-                                </Text>
-                              )}
-                              {exercise.progression && (
-                                <Text style={styles.exerciseProgression}>
-                                  📈 Progression: {exercise.progression}
-                                </Text>
-                              )}
-                              {exercise.tips && (
-                                <Text style={styles.exerciseTips}>
-                                  💡 {exercise.tips}
-                                </Text>
-                              )}
+                                <View style={styles.exerciseCardMain}>
+                                  <Text style={styles.exerciseName}>
+                                    {exercise.name}
+                                  </Text>
+                                  {exercise.note && (
+                                    <Text
+                                      style={{
+                                        marginBottom: 10,
+                                        color: theme.colors.textSecondary,
+                                      }}
+                                    >
+                                      {exercise.note}
+                                    </Text>
+                                  )}
+                                  {exercise.reps && (
+                                    <Text style={styles.exerciseReps}>
+                                      Reps: {exercise.reps}
+                                    </Text>
+                                  )}
+                                  {exercise.sets && (
+                                    <Text style={styles.exerciseSets}>
+                                      Sets: {exercise.sets}
+                                    </Text>
+                                  )}
+                                  {exercise.tempo && (
+                                    <Text style={styles.exerciseDetail}>
+                                      Tempo: {exercise.tempo}
+                                    </Text>
+                                  )}
+                                  {exercise.rest && (
+                                    <Text style={styles.exerciseDetail}>
+                                      Rest: {exercise.rest}
+                                    </Text>
+                                  )}
+                                  {(exercise.id || exercise.exerciseId) && (
+                                    <TouchableOpacity
+                                      style={styles.exerciseLinkButton}
+                                      onPress={() =>
+                                        handleExercisePress(exercise)
+                                      }
+                                      accessibilityRole="button"
+                                      accessibilityLabel={`Open ${exercise.name} details`}
+                                      accessibilityHint="Opens the exercise detail page"
+                                    >
+                                      <Ionicons
+                                        name="ellipsis-horizontal"
+                                        size={17}
+                                        color={theme.colors.primary}
+                                      />
+                                    </TouchableOpacity>
+                                  )}
+                                </View>
+                              </View>
                             </View>
                           </View>
                         );
@@ -705,6 +714,20 @@ const getStyles = (theme) =>
       borderLeftWidth: 4,
       borderLeftColor: theme.colors.primary,
     },
+    exerciseCardContent: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+      gap: 12,
+    },
+    exerciseCardMain: {
+      flex: 1,
+    },
+    exerciseImage: {
+      width: 84,
+      height: 84,
+      borderRadius: 8,
+      backgroundColor: theme.colors.backgroundSecondary,
+    },
     pairLabel: {
       flexDirection: "row",
       alignItems: "center",
@@ -751,7 +774,7 @@ const getStyles = (theme) =>
       marginBottom: 12,
     },
     exerciseName: {
-      fontSize: 16,
+      fontSize: 20,
       fontWeight: "bold",
       color: theme.colors.text,
       marginBottom: 4,
@@ -785,6 +808,15 @@ const getStyles = (theme) =>
       fontSize: 12,
       color: theme.colors.textTertiary,
       fontStyle: "italic",
+    },
+    exerciseLinkButton: {
+      marginTop: 10,
+      alignSelf: "flex-end",
+      backgroundColor: "transparent",
+      paddingHorizontal: 4,
+      paddingVertical: 2,
+      alignItems: "center",
+      justifyContent: "center",
     },
     exerciseDetail: {
       fontSize: 14,

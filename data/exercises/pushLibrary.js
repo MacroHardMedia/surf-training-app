@@ -5,7 +5,7 @@ export const pushLibrary = {
     id: "push-ups",
     name: "Push-ups",
     description:
-      "Classic upper body pressing exercise for chest, shoulders, and triceps.",
+      "Classic upper body pressing exercise for chest, shoulders, and triceps. Keep your elbows closer to your body.",
     equipment: null,
     steps: [
       "Start in a plank position with hands slightly wider than shoulder-width",
@@ -150,6 +150,13 @@ export const pushLibrary = {
     category: "push",
     muscleGroups: ["chest", "push", "shoulders", "triceps", "core", "mobility"],
     difficulty: "intermediate",
+    regressions: [
+      "Pike Push-Up",
+      "Standard Push-Up",
+      "Incline Push-Up",
+      "Knee Push-up",
+      "Wall push-up",
+    ],
     videoUrl: null,
   },
 

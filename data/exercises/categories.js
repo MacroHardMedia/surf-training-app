@@ -77,6 +77,12 @@ export const exerciseCategories = {
     description: "Bodyweight natural movement. No equipment necessary.",
     icon: "🦍",
   },
+  conditioning: {
+    id: "conditioning",
+    name: "Conditioning",
+    description: "Develop stamina.",
+    icon: "🏃",
+  },
 };
 
 // Get all category IDs

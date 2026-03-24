@@ -100,6 +100,7 @@ export default function LibraryTab() {
         >
           {exercise.description}
         </Text>
+
         <View style={styles.categoryContainer}>
           {normalizeCategories(exercise.category).map((cat, idx, arr) => (
             <Text
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   filterSection: {
-    marginBottom: 8,
+    marginBottom: 2,
     paddingLeft: 16,
   },
   filterTitle: {
@@ -300,6 +301,12 @@ const styles = StyleSheet.create({
   exerciseDescription: {
     fontSize: 14,
     marginBottom: 12,
+  },
+  tapHintText: {
+    fontSize: 12,
+    marginTop: -6,
+    marginBottom: 10,
+    fontStyle: "italic",
   },
   categoryContainer: {
     flexDirection: "row",

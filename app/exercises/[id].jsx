@@ -13,6 +13,7 @@ import { exerciseCategories } from "../../data/exercises/categories";
 import { muscleGroups } from "../../data/exercises/muscleGroups";
 import { useTheme } from "../../contexts/ThemeContext";
 import { useMemo } from "react";
+import { ROUTES } from "../../constants/routes";
 
 export default function ExerciseDetail() {
   const { id } = useLocalSearchParams();
@@ -20,6 +21,33 @@ export default function ExerciseDetail() {
   const { theme } = useTheme();
   const exercise = exerciseLibrary[id];
   const styles = useMemo(() => getStyles(theme), [theme]);
+
+  const normalizeDetailItems = (value) => {
+    if (!value) {
+      return [];
+    }
+
+    if (Array.isArray(value)) {
+      return value.map((item) => String(item)).filter(Boolean);
+    }
+
+    return [String(value)];
+  };
+
+  const formatTipsLabel = (label) =>
+    String(label)
+      .replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+
+  const handleBackPress = () => {
+    if (router.canGoBack()) {
+      router.back();
+      return;
+    }
+    router.replace(ROUTES.LIBRARY);
+  };
 
   if (!exercise) {
     return (
@@ -33,12 +61,75 @@ export default function ExerciseDetail() {
     ? exercise.category
     : [exercise.category];
 
+  const tipsSections = (() => {
+    const tips = exercise.tips;
+
+    if (!tips) {
+      return [];
+    }
+
+    if (typeof tips === "string") {
+      return [{ title: null, items: [tips] }];
+    }
+
+    if (Array.isArray(tips)) {
+      return [{ title: null, items: tips }];
+    }
+
+    if (typeof tips === "object") {
+      return Object.entries(tips)
+        .map(([key, value]) => {
+          if (Array.isArray(value)) {
+            return {
+              title: formatTipsLabel(key),
+              items: value.map((item) => String(item)),
+            };
+          }
+
+          if (value === null || value === undefined) {
+            return null;
+          }
+
+          return {
+            title: formatTipsLabel(key),
+            items: [String(value)],
+          };
+        })
+        .filter((section) => section && section.items.length > 0);
+    }
+
+    return [];
+  })();
+
+  const progressionItems = normalizeDetailItems(
+    exercise.progressions || exercise.progression,
+  );
+  const regressionItems = normalizeDetailItems(
+    exercise.regressions || exercise.regression,
+  );
+
   return (
     <>
       <Stack.Screen
         options={{
           title: exercise.name,
           headerBackTitle: "Library",
+          headerBackVisible: false,
+          headerLeft: () => (
+            <TouchableOpacity
+              onPress={handleBackPress}
+              accessibilityRole="button"
+              accessibilityLabel="Go back"
+              accessibilityHint="Returns to the previous screen or the Library"
+              style={styles.headerBackButton}
+            >
+              <Ionicons
+                name="chevron-back"
+                size={24}
+                color={theme.colors.text}
+              />
+            </TouchableOpacity>
+          ),
         }}
       />
       <ScrollView style={styles.container}>
@@ -118,6 +209,70 @@ export default function ExerciseDetail() {
           </View>
         )}
 
+        {tipsSections.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>💡 Tips</Text>
+            <View style={styles.tipsGroups}>
+              {tipsSections.map((section, sectionIndex) => (
+                <View
+                  key={`tips-${section.title || "default"}-${sectionIndex}`}
+                  style={styles.tipGroup}
+                >
+                  {section.title && (
+                    <Text style={styles.tipGroupTitle}>{section.title}</Text>
+                  )}
+                  {section.items.map((tip, tipIndex) => (
+                    <View
+                      key={`tip-${sectionIndex}-${tipIndex}`}
+                      style={styles.tipItemRow}
+                    >
+                      <Text style={styles.tipBullet}>•</Text>
+                      <Text style={styles.tipItemText}>{tip}</Text>
+                    </View>
+                  ))}
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
+
+        {(progressionItems.length > 0 || regressionItems.length > 0) && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>📈 Progressions & Regressions</Text>
+            <View style={styles.detailGroups}>
+              {progressionItems.length > 0 && (
+                <View style={styles.detailGroup}>
+                  <Text style={styles.detailGroupTitle}>Progressions</Text>
+                  {progressionItems.map((item, index) => (
+                    <View
+                      key={`progression-${index}`}
+                      style={styles.detailItemRow}
+                    >
+                      <Text style={styles.detailBullet}>•</Text>
+                      <Text style={styles.detailItemText}>{item}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+
+              {regressionItems.length > 0 && (
+                <View style={styles.detailGroup}>
+                  <Text style={styles.detailGroupTitle}>Regressions</Text>
+                  {regressionItems.map((item, index) => (
+                    <View
+                      key={`regression-${index}`}
+                      style={styles.detailItemRow}
+                    >
+                      <Text style={styles.detailBullet}>•</Text>
+                      <Text style={styles.detailItemText}>{item}</Text>
+                    </View>
+                  ))}
+                </View>
+              )}
+            </View>
+          </View>
+        )}
+
         {/* Video Placeholder */}
         {exercise.videoUrl && (
           <View style={styles.section}>
@@ -150,6 +305,9 @@ const getStyles = (theme) =>
       color: theme.colors.textSecondary,
       textAlign: "center",
       marginTop: 40,
+    },
+    headerBackButton: {
+      paddingRight: 8,
     },
     header: {
       padding: 20,
@@ -262,6 +420,60 @@ const getStyles = (theme) =>
       lineHeight: 24,
       paddingTop: 4,
       color: theme.colors.text,
+    },
+    tipsGroups: {
+      gap: 12,
+    },
+    tipGroup: {
+      gap: 8,
+    },
+    tipGroupTitle: {
+      fontSize: 14,
+      fontWeight: "700",
+      color: theme.colors.text,
+    },
+    tipItemRow: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+      gap: 8,
+    },
+    tipBullet: {
+      fontSize: 16,
+      lineHeight: 24,
+      color: theme.colors.primary,
+    },
+    tipItemText: {
+      flex: 1,
+      fontSize: 15,
+      lineHeight: 24,
+      color: theme.colors.textSecondary,
+    },
+    detailGroups: {
+      gap: 16,
+    },
+    detailGroup: {
+      gap: 8,
+    },
+    detailGroupTitle: {
+      fontSize: 14,
+      fontWeight: "700",
+      color: theme.colors.text,
+    },
+    detailItemRow: {
+      flexDirection: "row",
+      alignItems: "flex-start",
+      gap: 8,
+    },
+    detailBullet: {
+      fontSize: 16,
+      lineHeight: 24,
+      color: theme.colors.primary,
+    },
+    detailItemText: {
+      flex: 1,
+      fontSize: 15,
+      lineHeight: 24,
+      color: theme.colors.textSecondary,
     },
     videoPlaceholder: {
       backgroundColor: theme.colors.backgroundSecondary,

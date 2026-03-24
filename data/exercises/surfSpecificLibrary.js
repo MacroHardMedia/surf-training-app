@@ -24,15 +24,36 @@ export const surfSpecificLibrary = {
     videoUrl: null,
   },
 
+  "dolphin-pushup": {
+    id: "dolphin-pushup",
+    name: "Dolphin Pushup",
+    description:
+      "This is inspired from the worm lol. But it's actually quite functional in relation to the pop-up.",
+    equipment: "optional: yoga mat, surfboard, balance board or bosu ball",
+    steps: [
+      "Start in the prone position",
+      "Place your hands on the floor or grab the rails of your surfboard.",
+      "Keep your elbows close to your body",
+      "Do a leg curl driving your heels toward your butt to load up.",
+      "Kick your feet down toward the floor without kicking the floor.",
+      "Use that momentum to do half a pushup.",
+    ],
+    category: "surf-specific",
+    muscleGroups: ["shoulders", "chest"],
+    difficulty: "beginner - intermediate",
+    videoUrl: null,
+  },
+
   "land-surf-popup": {
     id: "land-surf-popup",
     name: "Land Surf Pop-Up",
     description:
-      "Surf-specific explosive movement that trains fast hip extension, upper-body push strength, and coordinated stance landing.",
+      "Surf-specific explosive movement that trains fast hip extension, upper-body push strength, and coordinated stance landing. If you find it difficult to push-up use the dolphin push-up.",
     equipment: "None (optional yoga mat)",
     steps: [
       "Start lying prone on the floor with hands under your chest like a push-up.",
       "Engage your core and keep your elbows close to your body.",
+      "Keep your chest up.",
       "Press explosively through your hands as if performing a powerful push-up.",
       "Simultaneously drive your front foot forward under your body.",
       "Land with your backfoot slightly before your front foot.",

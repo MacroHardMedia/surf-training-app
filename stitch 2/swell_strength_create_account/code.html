@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Swell Strength | Join the Crew</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed": "#c7d7fd",
+                        "on-primary-fixed": "#004344",
+                        "primary-fixed-dim": "#3de4e7",
+                        "on-secondary-container": "#c0d1f6",
+                        "on-surface-variant": "#a3aac4",
+                        "tertiary-fixed-dim": "#fe7e4f",
+                        "on-secondary": "#3b4b6a",
+                        "secondary-fixed-dim": "#b9c9ee",
+                        "on-tertiary-fixed-variant": "#6b1f00",
+                        "inverse-on-surface": "#4d556b",
+                        "primary-container": "#0cd0d3",
+                        "surface-tint": "#52f2f5",
+                        "surface-container": "#0f1930",
+                        "error-dim": "#d7383b",
+                        "tertiary-fixed": "#ff946e",
+                        "on-primary-fixed-variant": "#006264",
+                        "on-primary-container": "#004041",
+                        "secondary-dim": "#b9c9ee",
+                        "surface-container-high": "#141f38",
+                        "tertiary-dim": "#f7794b",
+                        "outline-variant": "#40485d",
+                        "on-background": "#dee5ff",
+                        "inverse-surface": "#faf8ff",
+                        "on-tertiary-container": "#491300",
+                        "on-surface": "#dee5ff",
+                        "surface-dim": "#060e20",
+                        "primary-fixed": "#52f2f5",
+                        "surface-variant": "#192540",
+                        "on-secondary-fixed-variant": "#445474",
+                        "secondary-container": "#374765",
+                        "on-error-container": "#ffa8a3",
+                        "error-container": "#9f0519",
+                        "surface": "#060e20",
+                        "on-tertiary": "#5c1a00",
+                        "tertiary": "#ff946e",
+                        "surface-container-lowest": "#000000",
+                        "outline": "#6d758c",
+                        "secondary": "#c7d7fd",
+                        "on-tertiary-fixed": "#320a00",
+                        "tertiary-container": "#fe7e4f",
+                        "primary-dim": "#3de4e7",
+                        "on-error": "#490006",
+                        "surface-container-low": "#091328",
+                        "surface-container-highest": "#192540",
+                        "primary": "#52f2f5",
+                        "error": "#ff716c",
+                        "background": "#060e20",
+                        "on-secondary-fixed": "#283856",
+                        "surface-bright": "#1f2b49",
+                        "inverse-primary": "#006a6c",
+                        "on-primary": "#005859"
+                    },
+                    fontFamily: {
+                        "headline": ["Lexend"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-ocean-mesh {
+            background-color: #060e20;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(82, 242, 245, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(12, 208, 211, 0.1) 0px, transparent 50%),
+                radial-gradient(at 50% 0%, rgba(255, 148, 110, 0.05) 0px, transparent 50%);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(82, 242, 245, 0.4);
+        }
+        .kinetic-border {
+            background: linear-gradient(135deg, rgba(82, 242, 245, 0.2), transparent);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen selection:bg-primary selection:text-on-primary-container">
+<!-- Top Navigation Anchor (Non-shell context) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-8">
+<div class="flex items-center gap-2">
+<span class="text-primary font-headline font-black italic tracking-tighter text-2xl">SWELL</span>
+<span class="text-on-surface font-headline font-light tracking-widest text-xs uppercase opacity-60">Strength</span>
+</div>
+<a class="text-label-md font-headline font-medium text-primary-fixed-dim hover:text-primary transition-colors" href="#">
+            Support
+        </a>
+</header>
+<main class="relative min-h-screen flex items-center justify-center p-6 bg-ocean-mesh overflow-hidden">
+<!-- Abstract Wave Elements -->
+<div class="absolute inset-0 pointer-events-none">
+<div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-tertiary/5 rounded-full blur-[150px]"></div>
+</div>
+<div class="w-full max-w-xl grid grid-cols-1 gap-12 relative z-10">
+<!-- Headline Section -->
+<div class="space-y-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-highest/50 backdrop-blur-md border border-outline-variant/10">
+<span class="material-symbols-outlined text-[14px] text-tertiary">tsunami</span>
+<span class="text-[10px] font-headline font-bold uppercase tracking-[0.2em] text-on-surface-variant">The kinetic horizon</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-headline font-extrabold tracking-tighter text-on-surface leading-[0.9]">
+                    Join the <span class="text-primary text-glow">Crew</span>.
+                </h1>
+<p class="text-lg text-on-surface-variant font-light max-w-sm">
+                    Elevate your performance with elite training designed for the modern athlete.
+                </p>
+</div>
+<!-- Form Card -->
+<div class="bg-surface-container-low/40 backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative border border-outline-variant/5">
+<form class="space-y-6">
+<!-- Full Name -->
+<div class="space-y-2">
+<label class="block text-[10px] font-headline font-bold uppercase tracking-widest text-on-surface-variant ml-1">Full Name</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest/30 border-none rounded-2xl px-5 py-4 text-on-surface placeholder:text-outline/40 focus:ring-2 focus:ring-primary/30 transition-all font-medium" placeholder="Kelly Slater" type="text"/>
+<span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-outline/30 group-focus-within:text-primary transition-colors">person</span>
+</div>
+</div>
+<!-- Email -->
+<div class="space-y-2">
+<label class="block text-[10px] font-headline font-bold uppercase tracking-widest text-on-surface-variant ml-1">Email Address</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest/30 border-none rounded-2xl px-5 py-4 text-on-surface placeholder:text-outline/40 focus:ring-2 focus:ring-primary/30 transition-all font-medium" placeholder="paddle@swellstrength.com" type="email"/>
+<span class="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-outline/30 group-focus-within:text-primary transition-colors">alternate_email</span>
+</div>
+</div>
+<!-- Password -->
+<div class="space-y-2">
+<label class="block text-[10px] font-headline font-bold uppercase tracking-widest text-on-surface-variant ml-1">Password</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest/30 border-none rounded-2xl px-5 py-4 text-on-surface placeholder:text-outline/40 focus:ring-2 focus:ring-primary/30 transition-all font-medium" placeholder="••••••••••••" type="password"/>
+<button class="absolute right-5 top-1/2 -translate-y-1/2 text-outline/40 hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- CTA Button -->
+<div class="pt-4">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary-container font-headline font-extrabold text-sm tracking-widest uppercase py-5 rounded-2xl shadow-[0_10px_30px_rgba(82,242,245,0.2)] hover:shadow-[0_15px_40px_rgba(82,242,245,0.3)] hover:scale-[1.01] active:scale-95 transition-all duration-200" type="submit">
+                            CREATE ACCOUNT
+                        </button>
+</div>
+<!-- Divider -->
+<div class="flex items-center gap-4 py-2">
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+<span class="text-[10px] font-headline font-bold text-outline uppercase tracking-widest">Or connect via</span>
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+</div>
+<!-- Social Grid -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-3 bg-surface-container-highest/20 hover:bg-surface-container-highest/40 py-4 rounded-2xl border border-outline-variant/10 transition-colors" type="button">
+<img alt="" class="w-5 h-5 opacity-80" data-alt="Google company icon for social login" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGjVa_RZ-3iyJtNrCkgvn6Q0I90hAORH0wGi4TPAsaDnQbLtoZ_JXpVEOV8CPL-xStjOuweMfwLSf1pPjqDfeopTwoFSEceNu13jbxFDyIfkQ9DxLrLeLf2mXgty-tTwgJ5lNjm08MPf0RENhQy6wEDzgAPdH9s2i7ZjnxdLQOFzlEIN6EQnBLUeO0ZERCb7FaLzbYwJexegPSDw4fLdGYiAl39zP8us1Y3EdOlZPVQyU0M8wpKRgr6kdHNXyOIpA-OoEtnPpj6yI"/>
+<span class="text-xs font-headline font-semibold text-on-surface uppercase tracking-wider">Google</span>
+</button>
+<button class="flex items-center justify-center gap-3 bg-surface-container-highest/20 hover:bg-surface-container-highest/40 py-4 rounded-2xl border border-outline-variant/10 transition-colors" type="button">
+<span class="material-symbols-outlined text-xl opacity-80" style="font-variation-settings: 'FILL' 1;">ios</span>
+<span class="text-xs font-headline font-semibold text-on-surface uppercase tracking-wider">Apple</span>
+</button>
+</div>
+</form>
+<div class="mt-10 text-center">
+<p class="text-on-surface-variant text-sm font-medium">
+                        Already have an account? 
+                        <a class="text-primary font-bold hover:underline underline-offset-4 ml-1" href="#">Log In</a>
+</p>
+</div>
+</div>
+<!-- Footer Compliance -->
+<div class="flex justify-center items-center gap-8 opacity-40">
+<a class="text-[10px] font-headline font-bold uppercase tracking-widest hover:opacity-100 transition-opacity" href="#">Privacy</a>
+<div class="w-1 h-1 rounded-full bg-outline"></div>
+<a class="text-[10px] font-headline font-bold uppercase tracking-widest hover:opacity-100 transition-opacity" href="#">Terms</a>
+<div class="w-1 h-1 rounded-full bg-outline"></div>
+<a class="text-[10px] font-headline font-bold uppercase tracking-widest hover:opacity-100 transition-opacity" href="#">Security</a>
+</div>
+</div>
+<!-- Decorative Right Image (Asymmetric Depth) -->
+<div class="hidden lg:block absolute right-[-5%] top-1/2 -translate-y-1/2 w-[35vw] h-[618px] rounded-l-[4rem] overflow-hidden border-l border-t border-outline-variant/20 shadow-2xl">
+<img alt="" class="w-full h-full object-cover grayscale contrast-125 opacity-40" data-alt="Cinematic high contrast shot of surfer on wave" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoR1RBx3Pi9oWzl01k8yQeR3WjtuQ8Wf8EtHXpX2UtscK4OrkVuzBNgrrxeywwbJ4rjXN4wtTe-n_Ak2E9q-Oqo5HdowKhxKorI9l8Q8u9yYOg24VTyx131PRre7ybp7MVkn9OU4G6prrjxTWHSnp3XTEnxD_lpQ3nI7-d6fYl9MITxuoIGzpQJStJEEyLwhOlwWSGdbzIWLTh-B4aBAV-IrmsRkcU52z3es9tGtjJPxOn7bZssBlsZNkKHUP4dArrHOZMA8GKnoA"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface via-transparent to-transparent"></div>
+<div class="absolute bottom-12 left-12 max-w-xs">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+<p class="font-headline font-bold text-2xl italic tracking-tight text-on-surface">"The best surfer out there is the one having the most fun."</p>
+</div>
+</div>
+</main>
+</body></html>

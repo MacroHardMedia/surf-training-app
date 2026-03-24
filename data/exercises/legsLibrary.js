@@ -19,6 +19,27 @@ export const legsLibrary = {
     videoUrl: null,
   },
 
+  "box-squats": {
+    id: "box-squats",
+    name: "Box Squats",
+    description:
+      "A squat variation where you sit back onto a box to improve depth control, posterior chain activation, and proper squat mechanics. If it's too easy get a shorter box to sit on.",
+    equipment: ["box", "bench", "barbell (optional)", "dumbbell (optional)"],
+    steps: [
+      "Stand in front of a box or bench with feet shoulder-width apart, toes slightly turned out",
+      "Brace your core and keep your chest up",
+      "Push your hips back and begin lowering under control",
+      "Sit back onto the box gently without fully relaxing your core",
+      "Keep your shins relatively vertical and weight through your heels",
+      "Pause briefly on the box while staying tight",
+      "Drive through your heels and extend your hips to stand back up",
+    ],
+    category: "legs",
+    muscleGroups: ["glutes", "quads", "hamstrings"],
+    difficulty: "beginner",
+    videoUrl: null,
+  },
+
   "cossack-squat": {
     id: "cossack-squat",
     name: "Cossack Squat",
@@ -32,7 +53,7 @@ export const legsLibrary = {
       "Stay tall through the chest.",
       "Drive back to center and switch sides.",
     ],
-    category: "strength",
+    category: "legs",
     muscleGroups: ["glutes", "adductors", "hamstrings", "hips"],
     difficulty: "intermediate",
     videoUrl: null,
@@ -55,7 +76,7 @@ export const legsLibrary = {
       "Maintain knee alignment over toes throughout the movement.",
       "Complete reps on one side before switching.",
     ],
-    category: "strength",
+    category: "legs",
     muscleGroups: ["glutes", "quads", "hamstrings", "balance", "core"],
     difficulty: "beginner",
     videoUrl: null,
